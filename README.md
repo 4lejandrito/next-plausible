@@ -2,6 +2,8 @@
 
 Simple integration for https://plausible.io analytics and https://nextjs.org.
 
+See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5c4da5da5aeabaa792a5f42c21a1ed) for a real world example.
+
 ## Usage
 
 In a NextJS page:
