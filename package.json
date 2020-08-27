@@ -1,0 +1,53 @@
+{
+  "name": "next-plausible",
+  "version": "1.0.2",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "author": "Alejandro Tardín <alejandro@tardin.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/4lejandrito/next-plausible.git"
+  },
+  "funding": "https://github.com/4lejandrito/next-plausible?sponsor=1",
+  "keywords": [
+    "next",
+    "plausible",
+    "analytics"
+  ],
+  "scripts": {
+    "start": "rollup -c -w",
+    "build": "rollup -c",
+    "prepublishOnly": "NODE_ENV=production yarn build"
+  },
+  "peerDependencies": {
+    "next": "9.5.0",
+    "react": "^16.8",
+    "react-dom": "^16.8"
+  },
+  "devDependencies": {
+    "@types/node": "^14.6.0",
+    "@types/react": "^16.9.44",
+    "husky": ">=4",
+    "lint-staged": ">=10",
+    "next": "9.5.0",
+    "prettier": "^1.15.3",
+    "react": "16.13.1",
+    "rollup": "^2.21.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "typescript": "^3.9.7"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,md,json,html,css,scss,webmanifest}": "prettier --write"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
