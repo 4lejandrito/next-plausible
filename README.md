@@ -8,7 +8,7 @@ See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5
 
 In a NextJS page:
 
-```jsx
+```tsx
 import PlausibleProvider from 'next-plausible'
 
 export default Home() {
@@ -23,14 +23,14 @@ export default Home() {
 
 To send custom events:
 
-```jsx
-import {usePlausible} from 'next-plausible'
+```tsx
+import {usePlausible}  from 'next-plausible'
 
 export default PlausibleButton() {
     const plausible = usePlausible()
 
     return (
-        <>
+        <a>
             <button onClick={() => plausible('customEventName')}>
                 Send
             </button>
@@ -45,15 +45,15 @@ export default PlausibleButton() {
             >
                 Send with props
             </button>
-        </>
+        </a>
     )
 }
 ```
 
 To send type safe custom events:
 
-```jsx
-import {usePlausible} from 'next-plausible'
+```tsx
+import { usePlausible } from 'next-plausible'
 
 type MyEvents = {
   event1: { prop1: string }
