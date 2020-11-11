@@ -35,7 +35,14 @@ export default PlausibleButton() {
                 Send
             </button>
 
-            <button id="foo" onClick={() => plausible('customEventName', { props: { buttonId: 'foo' }})}>
+            <button
+                id="foo"
+                onClick={() => plausible('customEventName', {
+                    props: {
+                        buttonId: 'foo'
+                    }})
+                }
+            >
                 Send with props
             </button>
         </>
