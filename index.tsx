@@ -23,10 +23,21 @@ export default function PlausibleProvider(props: {
 }
 
 // https://docs.plausible.io/custom-event-goals#using-custom-props
-type EventOptions = {
-  props?: Record<string, unknown>
+type Props = Record<string, unknown> | never
+type EventOptions<P extends Props> = {
+  props: P
   callback?: VoidFunction
 }
+type EventOptionsTuple<P extends Props> = P extends never
+  ? [Omit<EventOptions<P>, 'props'>?]
+  : [EventOptions<P>]
+type Events = { [K: string]: Props }
 
-export const usePlausible = () => (eventName: string, options?: EventOptions) =>
-  (window as any).plausible?.(eventName, options)
+export function usePlausible<E extends Events = any>() {
+  return function<N extends keyof E>(
+    eventName: N,
+    ...rest: EventOptionsTuple<E[N]>
+  ) {
+    return (window as any).plausible?.(eventName, rest[0])
+  }
+}

@@ -50,6 +50,22 @@ export default PlausibleButton() {
 }
 ```
 
+To send type safe custom events:
+
+```jsx
+import {usePlausible} from 'next-plausible'
+
+type MyEvents = {
+  event1: { prop1: string }
+  event2: { prop2: string }
+  event3: never
+}
+
+const plausible = usePlausible<MyEvents>()
+```
+
+Only those events with the right props will be allowed to be sent using the `plausible` function.
+
 ## Developing
 
 - `yarn build` will generate the production scripts under the `dist` folder.
