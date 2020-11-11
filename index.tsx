@@ -22,5 +22,11 @@ export default function PlausibleProvider(props: {
   )
 }
 
-export const usePlausible = () => (event: string) =>
-  (window as any).plausible?.(event)
+// https://docs.plausible.io/custom-event-goals#using-custom-props
+type EventOptions = {
+  props?: Record<string, unknown>
+  callback?: VoidFunction
+}
+
+export const usePlausible = () => (eventName: string, options?: EventOptions) =>
+  (window as any).plausible?.(eventName, options)

@@ -28,10 +28,17 @@ import {usePlausible} from 'next-plausible'
 
 export default PlausibleButton() {
     const plausible = usePlausible()
+
     return (
-        <button onClick={() => plausible('customEventName')}>
-            Send
-        </button>
+        <>
+            <button onClick={() => plausible('customEventName')}>
+                Send
+            </button>
+
+            <button id="foo" onClick={() => plausible('customEventName', { props: { buttonId: 'foo' }})}>
+                Send with props
+            </button>
+        </>
     )
 }
 ```
