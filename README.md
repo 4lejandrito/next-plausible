@@ -6,7 +6,9 @@ See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5
 
 ## Usage
 
-In a NextJS page:
+### Include the analytics script
+
+To include the Plausible analytics script in your NextJS page use the `PlausibleProvider` component:
 
 ```jsx
 import PlausibleProvider from 'next-plausible'
@@ -21,14 +23,16 @@ export default Home() {
 }
 ```
 
-### Props:
+#### `PlausibleProvider` props:
 
 | Name           | Description                                                                                                                                                        |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `domain`       | The domain of the site you want to monitor.                                                                                                                        |
 | `customDomain` | Set this if you use a custom domain to serve the analytics script. Defaults to https://plausible.io. See https://plausible.io/docs/custom-domain for more details. |
 
-To send custom events:
+### Send custom events:
+
+Plausible supports custom events as described at https://plausible.io/docs/custom-event-goals. This package provides the `usePlausible` hook to safely access the `plausible` function like this:
 
 ```jsx
 import { usePlausible } from 'next-plausible'
@@ -57,7 +61,7 @@ export default function PlausibleButton() {
 }
 ```
 
-To send type safe custom events:
+If you use Typescript you can type check your custom events like this:
 
 ```tsx
 import { usePlausible } from 'next-plausible'
