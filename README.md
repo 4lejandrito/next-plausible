@@ -6,14 +6,14 @@ See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5
 
 ## Usage
 
-In a NextJS page:
+In a NextJS page include the domain you want to monitor under "domain" and where you host your plausible instance under "customDomain." Plausible.io remains the default below.
 
 ```jsx
 import PlausibleProvider from 'next-plausible'
 
 export default Home() {
     return (
-        <PlausibleProvider domain="example.com">
+        <PlausibleProvider domain="example.com" customDomain="https://plausible.io">
             <h1>My Site</h1>
             ...
         </PlausibleProvider>
