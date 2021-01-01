@@ -15,7 +15,7 @@ export default function PlausibleProvider(props: {
             async
             defer
             data-domain={props.domain}
-            src={customDomain && '/js/plausible.js?original='}
+            src={`${customDomain}/js/plausible.js?original=`}
           />
         )}
       </Head>
