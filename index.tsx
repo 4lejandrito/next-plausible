@@ -3,9 +3,10 @@ import Head from 'next/head'
 
 export default function PlausibleProvider(props: {
   domain: string
-  customDomain: string
+  customDomain?: string
   children: ReactNode | ReactNode[]
 }) {
+  const { customDomain = 'https://plausible.io' } = props
   return (
     <>
       <Head>
@@ -14,7 +15,7 @@ export default function PlausibleProvider(props: {
             async
             defer
             data-domain={props.domain}
-            src={props.customDomain && '/js/plausible.js?original='}
+            src={customDomain && '/js/plausible.js?original='}
           />
         )}
       </Head>
