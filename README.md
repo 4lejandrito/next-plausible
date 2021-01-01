@@ -13,7 +13,7 @@ import PlausibleProvider from 'next-plausible'
 
 export default Home() {
     return (
-        <PlausibleProvider domain="example.com" customDomain="https://plausible.io">
+        <PlausibleProvider domain="example.com">
             <h1>My Site</h1>
             ...
         </PlausibleProvider>
