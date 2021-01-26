@@ -17,9 +17,9 @@ export default function PlausibleProvider(props: {
             defer
             data-domain={props.domain}
             data-exclude={props.exclude}
-            src={`${customDomain}/js/plausible${
-              props.exclude ? '.exclusions' : ''
-            }.js`}
+            src={`${customDomain}/js/${
+              customDomain === 'https://plausible.io' ? 'plausible' : 'index'
+            }${props.exclude ? '.exclusions' : ''}.js`}
           />
         )}
       </Head>

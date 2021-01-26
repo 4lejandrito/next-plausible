@@ -27,9 +27,9 @@ describe('PlausibleProvider', () => {
     const script = $('head > script[data-domain="example.com"]')
 
     describe('the script', () => {
-      test('points to https://custom.example.com/js/plausible.js', () => {
+      test('points to https://custom.example.com/js/index.js', () => {
         expect(script.attr('src')).toBe(
-          'https://custom.example.com/js/plausible.js'
+          'https://custom.example.com/js/index.js'
         )
       })
     })
@@ -63,9 +63,9 @@ describe('PlausibleProvider', () => {
         expect(script.data('exclude')).toBe('page')
       })
 
-      test('points to https://custom.example.com/js/plausible.exclusions.js', () => {
+      test('points to https://custom.example.com/js/index.exclusions.js', () => {
         expect(script.attr('src')).toBe(
-          'https://custom.example.com/js/plausible.exclusions.js'
+          'https://custom.example.com/js/index.exclusions.js'
         )
       })
     })
