@@ -17,6 +17,7 @@
     "analytics"
   ],
   "scripts": {
+    "test": "cd test && yarn && yarn test",
     "start": "rollup -c -w",
     "build": "rollup -c",
     "prepublishOnly": "NODE_ENV=production yarn build"
