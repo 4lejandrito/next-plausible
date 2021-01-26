@@ -8,9 +8,6 @@ export default function PlausibleProvider(props: {
   exclude?: string
 }) {
   const { customDomain = 'https://plausible.io' } = props
-  const defaultScript = props.exclude ? 'plausible.exclusions.js' : 'plausible.js'
-  const customDomainScript = props.exclude ? 'index.exclusions.js' : 'index.js'
-  const script = customDomain === 'https://plausible.io' ? defaultScript : customDomainScript
   return (
     <>
       <Head>
@@ -20,7 +17,9 @@ export default function PlausibleProvider(props: {
             defer
             data-domain={props.domain}
             data-exclude={props.exclude}
-            src={`${customDomain}/js/${script}`}
+            src={`${customDomain}/js/plausible${
+              props.exclude ? '.exclusions' : ''
+            }.js`}
           />
         )}
       </Head>
