@@ -23,8 +23,8 @@
     "prepublishOnly": "NODE_ENV=production yarn build"
   },
   "peerDependencies": {
-    "next": "^9.4.0",
-    "react": "^16.8",
+    "next": "^9.4.0 || ^10.0.0",
+    "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8"
   },
   "devDependencies": {
