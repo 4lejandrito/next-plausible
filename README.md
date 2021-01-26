@@ -29,6 +29,7 @@ export default Home() {
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `domain`       | The domain of the site you want to monitor.                                                                                                                        |
 | `customDomain` | Set this if you use a custom domain to serve the analytics script. Defaults to https://plausible.io. See https://plausible.io/docs/custom-domain for more details. |
+| `exclude`      | Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.                                 |
 
 ### Send custom events:
 
