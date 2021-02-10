@@ -70,4 +70,17 @@ describe('PlausibleProvider', () => {
       })
     })
   })
+
+  describe('when using a self hosted instance like <PlausibleProvider domain="example.com" customDomain="https://custom.example.com" selfHosted>', () => {
+    const $ = cheerio.load(fs.readFileSync('./out/selfHosted.html', 'utf8'))
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('points to https://custom.example.com/js/plausible.js', () => {
+        expect(script.attr('src')).toBe(
+          'https://custom.example.com/js/plausible.js'
+        )
+      })
+    })
+  })
 })

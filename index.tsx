@@ -6,6 +6,7 @@ export default function PlausibleProvider(props: {
   customDomain?: string
   children: ReactNode | ReactNode[]
   exclude?: string
+  selfHosted?: boolean
 }) {
   const { customDomain = 'https://plausible.io' } = props
   return (
@@ -18,7 +19,9 @@ export default function PlausibleProvider(props: {
             data-domain={props.domain}
             data-exclude={props.exclude}
             src={`${customDomain}/js/${
-              customDomain === 'https://plausible.io' ? 'plausible' : 'index'
+              props.selfHosted || customDomain === 'https://plausible.io'
+                ? 'plausible'
+                : 'index'
             }${props.exclude ? '.exclusions' : ''}.js`}
           />
         )}
