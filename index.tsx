@@ -7,12 +7,16 @@ export default function PlausibleProvider(props: {
   children: ReactNode | ReactNode[]
   exclude?: string
   selfHosted?: boolean
+  enabled?: boolean
 }) {
-  const { customDomain = 'https://plausible.io' } = props
+  const {
+    customDomain = 'https://plausible.io',
+    enabled = process.env.NODE_ENV === 'production'
+  } = props
   return (
     <>
       <Head>
-        {process.env.NODE_ENV === 'production' && (
+        {enabled && (
           <script
             async
             defer

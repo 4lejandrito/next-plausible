@@ -83,4 +83,15 @@ describe('PlausibleProvider', () => {
       })
     })
   })
+
+  describe('when used like <PlausibleProvider domain="example.com" enabled={false}>', () => {
+    const $ = cheerio.load(fs.readFileSync('./out/disabled.html', 'utf8'))
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('is not rendered', () => {
+        expect(script.length).toBe(0)
+      })
+    })
+  })
 })
