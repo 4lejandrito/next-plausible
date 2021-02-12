@@ -94,4 +94,17 @@ describe('PlausibleProvider', () => {
       })
     })
   })
+
+  describe('when passing the integrity attribute like <PlausibleProvider domain="example.com" integrity={...}>', () => {
+    const $ = cheerio.load(fs.readFileSync('./out/integrity.html', 'utf8'))
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('contains the integrity attribute', () => {
+        expect(script.attr('integrity')).toBe(
+          'sha-384-Wxt0f9q5Z1p6pEiVEw/jTJreeVlAcC08vg5shuvm5LccbFFLpb0aTUc6RMUSjgS7'
+        )
+      })
+    })
+  })
 })

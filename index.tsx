@@ -8,6 +8,7 @@ export default function PlausibleProvider(props: {
   exclude?: string
   selfHosted?: boolean
   enabled?: boolean
+  integrity?: string
 }) {
   const {
     customDomain = 'https://plausible.io',
@@ -27,6 +28,7 @@ export default function PlausibleProvider(props: {
                 ? 'plausible'
                 : 'index'
             }${props.exclude ? '.exclusions' : ''}.js`}
+            integrity={props.integrity}
           />
         )}
       </Head>
