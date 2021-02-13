@@ -105,6 +105,10 @@ describe('PlausibleProvider', () => {
           'sha-384-Wxt0f9q5Z1p6pEiVEw/jTJreeVlAcC08vg5shuvm5LccbFFLpb0aTUc6RMUSjgS7'
         )
       })
+
+      test('contains the crossorigin attribute', () => {
+        expect(script.attr('crossorigin')).toBe('anonymous')
+      })
     })
   })
 })

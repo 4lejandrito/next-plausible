@@ -29,6 +29,7 @@ export default function PlausibleProvider(props: {
                 : 'index'
             }${props.exclude ? '.exclusions' : ''}.js`}
             integrity={props.integrity}
+            crossOrigin={props.integrity ? 'anonymous' : undefined}
           />
         )}
       </Head>
