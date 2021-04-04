@@ -5,6 +5,7 @@ export default function PlausibleProvider(props: {
   domain: string
   customDomain?: string
   children: ReactNode | ReactNode[]
+  trackOutboundLinks?: boolean
   exclude?: string
   selfHosted?: boolean
   enabled?: boolean
@@ -27,7 +28,9 @@ export default function PlausibleProvider(props: {
               props.selfHosted || customDomain === 'https://plausible.io'
                 ? 'plausible'
                 : 'index'
-            }${props.exclude ? '.exclusions' : ''}.js`}
+            }${props.trackOutboundLinks ? '.outbound-links' : ''}${
+              props.exclude ? '.exclusions' : ''
+            }.js`}
             integrity={props.integrity}
             crossOrigin={props.integrity ? 'anonymous' : undefined}
           />

@@ -71,6 +71,40 @@ describe('PlausibleProvider', () => {
     })
   })
 
+  describe('when tracking outbound links like <PlausibleProvider domain="example.com" trackOutboundLinks />', () => {
+    const $ = cheerio.load(
+      fs.readFileSync('./out/trackOutboundLinks.html', 'utf8')
+    )
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('points to https://plausible.io/js/plausible.outbound-links.js', () => {
+        expect(script.attr('src')).toBe(
+          'https://plausible.io/js/plausible.outbound-links.js'
+        )
+      })
+    })
+  })
+
+  describe('when tracking outbound links and excluding a page like <PlausibleProvider domain="example.com" trackOutboundLinks exclude="page" />', () => {
+    const $ = cheerio.load(
+      fs.readFileSync('./out/trackOutboundLinksExclude.html', 'utf8')
+    )
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('has the data-exclude attribute', () => {
+        expect(script.data('exclude')).toBe('page')
+      })
+
+      test('points to https://plausible.io/js/plausible.outbound-links.exclusions.js', () => {
+        expect(script.attr('src')).toBe(
+          'https://plausible.io/js/plausible.outbound-links.exclusions.js'
+        )
+      })
+    })
+  })
+
   describe('when using a self hosted instance like <PlausibleProvider domain="example.com" customDomain="https://custom.example.com" selfHosted>', () => {
     const $ = cheerio.load(fs.readFileSync('./out/selfHosted.html', 'utf8'))
     const script = $('head > script[data-domain="example.com"]')
