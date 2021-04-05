@@ -1,6 +1,6 @@
 {
   "name": "next-plausible",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,9 @@
     "type": "git",
     "url": "https://github.com/4lejandrito/next-plausible.git"
   },
-  "funding": "https://github.com/4lejandrito/next-plausible?sponsor=1",
+  "funding": {
+    "url": "https://github.com/4lejandrito/next-plausible?sponsor=1"
+  },
   "keywords": [
     "next",
     "plausible",
