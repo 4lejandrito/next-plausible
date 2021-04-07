@@ -8,18 +8,26 @@ See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5
 
 ### Include the analytics script
 
-To include the Plausible analytics script in your NextJS page use the `PlausibleProvider` component:
+To include the Plausible analytics script site-wide in your NextJS page use the `PlausibleProvider` component in your [`_document.js`](https://nextjs.org/docs/advanced-features/custom-document) file:
 
 ```jsx
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import PlausibleProvider from 'next-plausible'
 
-export default Home() {
+export default class MyDocument extends Document {
+  render() {
     return (
-        <PlausibleProvider domain="example.com">
-            <h1>My Site</h1>
-            ...
-        </PlausibleProvider>
+      <PlausibleProvider domain="example.com">
+        <Html>
+          <Head />
+          <body>
+            <Main />
+            <NextScript />
+          </body>
+        </Html>
+      </PlausibleProvider>
     )
+  }
 }
 ```
 
@@ -34,6 +42,23 @@ export default Home() {
 | `selfHosted`         | Set this to `true` if you are self hosting your Plausible instance. Otherwise you will get a 404 when requesting the script.                                                        |
 | `enabled`            | Use this to explicitly decide whether or not to render script. If not passed the script will be rendered when `process.env.NODE_ENV === 'production'`.                              |
 | `integrity`          | Optionally define the [subresource integrity](https://infosec.mozilla.org/guidelines/web_security#subresource-integrity) attribute for extra security.                              |
+
+### Track only selected pages:
+
+You can also wrap only selected pages with the `PlausibleProvider` to track only those pages or avoid touching the `_document.js` file all together:
+
+```jsx
+import PlausibleProvider from 'next-plausible'
+
+export default Home() {
+  return (
+    <PlausibleProvider domain="example.com">
+      <h1>My Site</h1>
+      ...
+    </PlausibleProvider>
+  )
+}
+```
 
 ### Send custom events:
 
