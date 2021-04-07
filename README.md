@@ -8,26 +8,17 @@ See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5
 
 ### Include the analytics script
 
-To include the Plausible analytics script site-wide in your NextJS page use the `PlausibleProvider` component in your [`_document.js`](https://nextjs.org/docs/advanced-features/custom-document) file:
+To include the Plausible analytics script site-wide in your NextJS page use the `PlausibleProvider` component in your [`_app.js`](https://nextjs.org/docs/advanced-features/custom-app) file:
 
 ```jsx
-import Document, { Html, Head, Main, NextScript } from 'next/document'
 import PlausibleProvider from 'next-plausible'
 
-export default class MyDocument extends Document {
-  render() {
-    return (
-      <PlausibleProvider domain="example.com">
-        <Html>
-          <Head />
-          <body>
-            <Main />
-            <NextScript />
-          </body>
-        </Html>
-      </PlausibleProvider>
-    )
-  }
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <PlausibleProvider domain="example.com">
+      <Component {...pageProps} />
+    </PlausibleProvider>
+  )
 }
 ```
 
