@@ -1,0 +1,20 @@
+{
+  "name": "next-plausible-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "next build && next export && jest",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "10.0.5",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.5",
+    "jest": "^26.6.3"
+  }
+}
