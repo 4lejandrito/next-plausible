@@ -9,12 +9,12 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "10.0.5",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "next": "10.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "cheerio": "^1.0.0-rc.5",
+    "cheerio": "^1.0.0-rc.6",
     "jest": "^26.6.3"
   }
 }
