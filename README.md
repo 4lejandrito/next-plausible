@@ -68,8 +68,8 @@ export default function PlausibleButton() {
         onClick={() =>
           plausible('customEventName', {
             props: {
-              buttonId: 'foo'
-            }
+              buttonId: 'foo',
+            },
           })
         }
       >

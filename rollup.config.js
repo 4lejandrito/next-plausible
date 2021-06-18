@@ -7,15 +7,15 @@ export default {
     {
       file: pkg.module,
       format: 'esm',
-      sourcemap: true
+      sourcemap: true,
     },
     {
       file: pkg.main,
       format: 'cjs',
       sourcemap: true,
-      exports: 'named'
-    }
+      exports: 'named',
+    },
   ],
   plugins: [typescript()],
-  external: [...Object.keys(pkg.peerDependencies)]
+  external: [...Object.keys(pkg.peerDependencies)],
 }

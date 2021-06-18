@@ -13,7 +13,7 @@ export default function PlausibleProvider(props: {
 }) {
   const {
     customDomain = 'https://plausible.io',
-    enabled = process.env.NODE_ENV === 'production'
+    enabled = process.env.NODE_ENV === 'production',
   } = props
   return (
     <>
@@ -53,7 +53,7 @@ type EventOptionsTuple<P extends Props> = P extends never
 type Events = { [K: string]: Props }
 
 export function usePlausible<E extends Events = any>() {
-  return function<N extends keyof E>(
+  return function <N extends keyof E>(
     eventName: N,
     ...rest: EventOptionsTuple<E[N]>
   ) {
