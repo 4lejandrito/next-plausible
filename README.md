@@ -49,6 +49,44 @@ export default function MyApp({ Component, pageProps }) {
 | `enabled`            | Use this to explicitly decide whether or not to render script. If not passed the script will be rendered when `process.env.NODE_ENV === 'production'`.                              |
 | `integrity`          | Optionally define the [subresource integrity](https://infosec.mozilla.org/guidelines/web_security#subresource-integrity) attribute for extra security.                              |
 
+### Proxy the analytics script
+
+To avoid being blocked by adblockers plausible [recommends proxying the script](https://plausible.io/docs/proxy/introduction). To do this you need to wrap your `next.config.js` with the `withPlausibleProxy` function:
+
+```js
+const { withPlausibleProxy } = require('next-plausible')
+
+module.exports = withPlausibleProxy()({
+  // ...your next js config, if any
+})
+```
+
+This will set up the necessary rewrites as described [here](https://plausible.io/docs/proxy/guides/nextjs) and configure `PlausibleProvider` to use the local URLs so you can keep using it like this:
+
+```jsx
+  <PlausibleProvider domain="example.com">
+    ...
+  </PlausibleProvider>
+}
+```
+
+**Note:** This will only work if you serve your site using `next start`. Statically generated sites won't be able to rewrite the requests.
+
+Optionally you can overwrite the proxied script subdirectory and name:
+
+```js
+const { withPlausibleProxy } = require('next-plausible')
+
+module.exports = withPlausibleProxy({
+  subdirectory: 'yoursubdirectory',
+  scriptName: 'scriptName',
+})({
+  // ...your next js config, if any
+})
+```
+
+This will load the script from `/js/yoursubdirectory/scriptName.js`.
+
 ### Send custom events:
 
 Plausible supports custom events as described at https://plausible.io/docs/custom-event-goals. This package provides the `usePlausible` hook to safely access the `plausible` function like this:
