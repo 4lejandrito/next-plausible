@@ -22,8 +22,8 @@ describe('PlausibleProvider', () => {
         expect(script.attr('defer')).toBeDefined()
       })
 
-      test('points to /js/analytics.js', () => {
-        expect(script.attr('src')).toBe('/js/analytics.js')
+      test('points to /js/script.js', () => {
+        expect(script.attr('src')).toBe('/js/script.js')
       })
     })
   })
@@ -41,8 +41,8 @@ describe('PlausibleProvider', () => {
         expect(script.data('exclude')).toBe('page')
       })
 
-      test('points to /js/analytics.exclusions.js', () => {
-        expect(script.attr('src')).toBe('/js/analytics.exclusions.js')
+      test('points to /js/script.exclusions.js', () => {
+        expect(script.attr('src')).toBe('/js/script.exclusions.js')
       })
     })
   })
@@ -56,8 +56,8 @@ describe('PlausibleProvider', () => {
     })
 
     describe('the script', () => {
-      test('points to /js/analytics.outbound-links.js', () => {
-        expect(script.attr('src')).toBe('/js/analytics.outbound-links.js')
+      test('points to /js/script.outbound-links.js', () => {
+        expect(script.attr('src')).toBe('/js/script.outbound-links.js')
       })
     })
   })
@@ -77,9 +77,9 @@ describe('PlausibleProvider', () => {
         expect(script.data('exclude')).toBe('page')
       })
 
-      test('points to /js/analytics.outbound-links.exclusions.js', () => {
+      test('points to /js/script.outbound-links.exclusions.js', () => {
         expect(script.attr('src')).toBe(
-          '/js/analytics.outbound-links.exclusions.js'
+          '/js/script.outbound-links.exclusions.js'
         )
       })
     })
@@ -89,20 +89,20 @@ describe('PlausibleProvider', () => {
 describe('The script at', () => {
   ;[
     {
-      source: '/js/analytics.exclusions.js',
+      source: '/js/script.exclusions.js',
       destination: 'https://plausible.io/js/plausible.exclusions.js',
     },
     {
-      source: '/js/analytics.outbound-links.js',
+      source: '/js/script.outbound-links.js',
       destination: 'https://plausible.io/js/plausible.outbound-links.js',
     },
     {
-      source: '/js/analytics.outbound-links.exclusions.js',
+      source: '/js/script.outbound-links.exclusions.js',
       destination:
         'https://plausible.io/js/plausible.outbound-links.exclusions.js',
     },
     {
-      source: '/js/analytics.js',
+      source: '/js/script.js',
       destination: 'https://plausible.io/js/plausible.js',
     },
   ].map(({ source, destination }) => {
