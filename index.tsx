@@ -13,20 +13,20 @@ export function withPlausibleProxy() {
     rewrites: async () => {
       const plausibleRewrites = [
         {
-          source: '/js/plausible.exclusions.js',
+          source: '/js/analytics.exclusions.js',
           destination: 'https://plausible.io/js/plausible.exclusions.js',
         },
         {
-          source: '/js/plausible.outbound-links.js',
+          source: '/js/analytics.outbound-links.js',
           destination: 'https://plausible.io/js/plausible.outbound-links.js',
         },
         {
-          source: '/js/plausible.outbound-links.exclusions.js',
+          source: '/js/analytics.outbound-links.exclusions.js',
           destination:
             'https://plausible.io/js/plausible.outbound-links.exclusions.js',
         },
         {
-          source: '/js/plausible.js',
+          source: '/js/analytics.js',
           destination: 'https://plausible.io/js/plausible.js',
         },
         {
@@ -74,9 +74,9 @@ export default function PlausibleProvider(props: {
             data-domain={props.domain}
             data-exclude={props.exclude}
             src={`${customDomain}/js/${
-              props.selfHosted ||
-              customDomain === 'https://plausible.io' ||
               hasProxy
+                ? 'analytics'
+                : props.selfHosted || customDomain === 'https://plausible.io'
                 ? 'plausible'
                 : 'index'
             }${props.trackOutboundLinks ? '.outbound-links' : ''}${
