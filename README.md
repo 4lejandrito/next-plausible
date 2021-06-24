@@ -61,7 +61,7 @@ module.exports = withPlausibleProxy()({
 })
 ```
 
-This will set up the necessary rewrites as described [here](https://plausible.io/docs/proxy/guides/nextjs) and configure `PlausibleProvider` to use the local URLs so you can keep using it like this:
+This will set up the necessary rewrites as described [here](https://plausible.io/docs/proxy/guides/nextjs#using-raw-nextjs-config) and configure `PlausibleProvider` to use the local URLs so you can keep using it like this:
 
 ```jsx
   <PlausibleProvider domain="example.com">
