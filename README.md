@@ -37,7 +37,7 @@ export default function MyApp({ Component, pageProps }) {
 }
 ```
 
-#### `PlausibleProvider` props:
+#### `PlausibleProvider` props
 
 | Name                 | Description                                                                                                                                                                         |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -87,7 +87,7 @@ module.exports = withPlausibleProxy({
 
 This will load the script from `/js/yoursubdirectory/scriptName.js`.
 
-### Send custom events:
+### Send custom events
 
 Plausible supports custom events as described at https://plausible.io/docs/custom-event-goals. This package provides the `usePlausible` hook to safely access the `plausible` function like this:
 
