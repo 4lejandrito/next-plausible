@@ -99,9 +99,10 @@ export default function PlausibleProvider(props: {
             async
             defer
             data-api={
-              proxyOptions?.subdirectory
+              props.api ??
+              (proxyOptions?.subdirectory
                 ? `/${proxyOptions.subdirectory}/api/event`
-                : props.api
+                : undefined)
             }
             data-domain={props.domain}
             data-exclude={props.exclude}
