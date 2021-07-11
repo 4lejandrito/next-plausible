@@ -146,24 +146,14 @@ describe('PlausibleProvider', () => {
     })
   })
 
-  describe('when passing the api attribute like <PlausibleProvider domain="example.com" api={...}>', () => {
-    const $ = cheerio.load(fs.readFileSync('./out/dataApi.html', 'utf8'))
+  describe('when passing custom script props like <PlausibleProvider domain="example.com" scriptProps={{...}}>', () => {
+    const $ = cheerio.load(fs.readFileSync('./out/scriptProps.html', 'utf8'))
     const script = $('head > script[data-domain="example.com"]')
 
     describe('the script', () => {
-      test('contains the data-api attribute', () => {
-        expect(script.attr('data-api')).toBe('/custom/api/event')
-      })
-    })
-  })
-
-  describe('when passing the src attribute like <PlausibleProvider domain="example.com" src={...}>', () => {
-    const $ = cheerio.load(fs.readFileSync('./out/src.html', 'utf8'))
-    const script = $('head > script[data-domain="example.com"]')
-
-    describe('the script', () => {
-      test('contains the src attribute', () => {
+      test('contains those attributes', () => {
         expect(script.attr('src')).toBe('/custom/js/script.js')
+        expect(script.attr('data-api')).toBe('/api/custom/event')
       })
     })
   })
