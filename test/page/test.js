@@ -145,4 +145,15 @@ describe('PlausibleProvider', () => {
       })
     })
   })
+
+  describe('when passing the api attribute like <PlausibleProvider domain="example.com" api={...}>', () => {
+    const $ = cheerio.load(fs.readFileSync('./out/dataApi.html', 'utf8'))
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('contains the data-api attribute', () => {
+        expect(script.attr('data-api')).toBe('/custom/api/event')
+      })
+    })
+  })
 })

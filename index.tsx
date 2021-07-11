@@ -81,6 +81,7 @@ export default function PlausibleProvider(props: {
   selfHosted?: boolean
   enabled?: boolean
   integrity?: string
+  api?: string
 }) {
   const {
     customDomain = 'https://plausible.io',
@@ -99,7 +100,7 @@ export default function PlausibleProvider(props: {
             data-api={
               proxyOptions?.subdirectory
                 ? `/${proxyOptions.subdirectory}/api/event`
-                : undefined
+                : props.api
             }
             data-domain={props.domain}
             data-exclude={props.exclude}

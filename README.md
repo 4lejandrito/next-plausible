@@ -48,6 +48,7 @@ export default function MyApp({ Component, pageProps }) {
 | `selfHosted`         | Set this to `true` if you are self hosting your Plausible instance. Otherwise you will get a 404 when requesting the script.                                                        |
 | `enabled`            | Use this to explicitly decide whether or not to render script. If not passed the script will be rendered when `process.env.NODE_ENV === 'production'`.                              |
 | `integrity`          | Optionally define the [subresource integrity](https://infosec.mozilla.org/guidelines/web_security#subresource-integrity) attribute for extra security.                              |
+| `api`                | Optionally define a custom endpoint for Plausible events. This can be useful for proxying from a statically generated site as described [here](https://plausible.io/docs/proxy/guides/cloudflare#step-4-optional-run-proxy-as-a-subdirectory).                                   |
 
 ### Proxy the analytics script
 
