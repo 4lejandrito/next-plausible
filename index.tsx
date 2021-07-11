@@ -82,6 +82,7 @@ export default function PlausibleProvider(props: {
   enabled?: boolean
   integrity?: string
   api?: string
+  src?: string
 }) {
   const {
     customDomain = 'https://plausible.io',
@@ -105,20 +106,21 @@ export default function PlausibleProvider(props: {
             data-domain={props.domain}
             data-exclude={props.exclude}
             src={
+              props.src ??
               (proxyOptions ? '' : customDomain) +
-              getScriptPath(
-                {
-                  ...proxyOptions,
-                  scriptName: proxyOptions
-                    ? proxyOptions.scriptName
-                    : props.selfHosted ||
-                      customDomain === 'https://plausible.io'
-                    ? 'plausible'
-                    : 'index',
-                },
-                props.trackOutboundLinks ? 'outbound-links' : null,
-                props.exclude ? 'exclusions' : null
-              )
+                getScriptPath(
+                  {
+                    ...proxyOptions,
+                    scriptName: proxyOptions
+                      ? proxyOptions.scriptName
+                      : props.selfHosted ||
+                        customDomain === 'https://plausible.io'
+                      ? 'plausible'
+                      : 'index',
+                  },
+                  props.trackOutboundLinks ? 'outbound-links' : null,
+                  props.exclude ? 'exclusions' : null
+                )
             }
             integrity={props.integrity}
             crossOrigin={props.integrity ? 'anonymous' : undefined}

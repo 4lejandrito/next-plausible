@@ -156,4 +156,15 @@ describe('PlausibleProvider', () => {
       })
     })
   })
+
+  describe('when passing the src attribute like <PlausibleProvider domain="example.com" src={...}>', () => {
+    const $ = cheerio.load(fs.readFileSync('./out/src.html', 'utf8'))
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('contains the src attribute', () => {
+        expect(script.attr('src')).toBe('/custom/js/script.js')
+      })
+    })
+  })
 })
