@@ -6,6 +6,7 @@ import getConfig from 'next/config'
 type NextPlausibleProxyOptions = {
   subdirectory?: string
   scriptName?: string
+  customDomain?: string
 }
 
 type ScriptModifier = 'exclusions' | 'outbound-links'
@@ -33,29 +34,29 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
       nextPlausibleProxyOptions: options,
     },
     rewrites: async () => {
+      options.customDomain = options.customDomain || 'https://plausible.io'
       const plausibleRewrites = [
         {
           source: getScriptPath(options),
-          destination: 'https://plausible.io/js/plausible.js',
+          destination: `${options.customDomain}/js/plausible.js`,
         },
         {
           source: getScriptPath(options, 'exclusions'),
-          destination: 'https://plausible.io/js/plausible.exclusions.js',
+          destination: `${options.customDomain}/js/plausible.exclusions.js`,
         },
         {
           source: getScriptPath(options, 'outbound-links'),
-          destination: 'https://plausible.io/js/plausible.outbound-links.js',
+          destination: `${options.customDomain}/js/plausible.outbound-links.js`,
         },
         {
           source: getScriptPath(options, 'outbound-links', 'exclusions'),
-          destination:
-            'https://plausible.io/js/plausible.outbound-links.exclusions.js',
+          destination: `${options.customDomain}/js/plausible.outbound-links.exclusions.js`,
         },
         {
           source: options.subdirectory
             ? `/${options.subdirectory}/api/event`
             : '/api/event',
-          destination: `https://plausible.io/api/event`,
+          destination: `${options.customDomain}/api/event`,
         },
       ]
       const rewrites = await nextConfig.rewrites?.()

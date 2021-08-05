@@ -1,0 +1,23 @@
+{
+  "name": "next-plausible-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "start-test test:start 3000 test:run",
+    "test:start": "next build && next start",
+    "test:run": "jest",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "11.0.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "jest": "^27.0.4",
+    "start-server-and-test": "^1.12.5"
+  }
+}
