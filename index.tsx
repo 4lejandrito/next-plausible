@@ -26,8 +26,13 @@ const getScriptPath = (
   }
 }
 
+const plausibleDomain = 'https://plausible.io'
+
 const getRemoteScriptName = (domain: string, selfHosted?: boolean) =>
-  selfHosted || domain === 'https://plausible.io' ? 'plausible' : 'index'
+  selfHosted || domain === plausibleDomain ? 'plausible' : 'index'
+
+const getDomain = (options: { customDomain?: string }) =>
+  options.customDomain ?? plausibleDomain
 
 export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
   return (nextConfig: NextConfig): NextConfig => ({
@@ -37,7 +42,7 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
       nextPlausibleProxyOptions: options,
     },
     rewrites: async () => {
-      const { customDomain: domain = 'https://plausible.io' } = options
+      const domain = getDomain(options)
       const getRemoteScript = (...modifiers: (ScriptModifier | null)[]) =>
         domain +
         getScriptPath(
@@ -98,10 +103,8 @@ export default function PlausibleProvider(props: {
     HTMLScriptElement
   >
 }) {
-  const {
-    customDomain = 'https://plausible.io',
-    enabled = process.env.NODE_ENV === 'production',
-  } = props
+  const { enabled = process.env.NODE_ENV === 'production' } = props
+  const domain = getDomain(props)
   const proxyOptions: NextPlausibleProxyOptions | undefined =
     getConfig()?.publicRuntimeConfig?.nextPlausibleProxyOptions
 
@@ -120,13 +123,13 @@ export default function PlausibleProvider(props: {
             data-domain={props.domain}
             data-exclude={props.exclude}
             src={
-              (proxyOptions ? '' : customDomain) +
+              (proxyOptions ? '' : domain) +
               getScriptPath(
                 {
                   ...proxyOptions,
                   scriptName: proxyOptions
                     ? proxyOptions.scriptName
-                    : getRemoteScriptName(customDomain, props.selfHosted),
+                    : getRemoteScriptName(domain, props.selfHosted),
                 },
                 props.trackOutboundLinks ? 'outbound-links' : null,
                 props.exclude ? 'exclusions' : null
