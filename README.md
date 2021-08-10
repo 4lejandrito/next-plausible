@@ -73,7 +73,7 @@ This will set up the necessary rewrites as described [here](https://plausible.io
 
 **Note:** This will only work if you serve your site using `next start`. Statically generated sites won't be able to rewrite the requests.
 
-Optionally you can overwrite the proxied script subdirectory and name, as well as the custom domain for the proxied script:
+Optionally you can overwrite the proxied script subdirectory and name, as well as the custom domain for the original script:
 
 ```js
 const { withPlausibleProxy } = require('next-plausible')
@@ -87,7 +87,7 @@ module.exports = withPlausibleProxy({
 })
 ```
 
-This will load the script from `/js/yoursubdirectory/scriptName.js` and proxy it from `http://example.com/js/script.js`.
+This will load the script from `/js/yoursubdirectory/scriptName.js` and fetch it from `http://example.com/js/script.js`.
 
 ### Send custom events
 
