@@ -1,0 +1,11 @@
+{
+  "name": "next-plausible-test",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "./*"
+  ],
+  "scripts": {
+    "test": "yarn workspaces run test"
+  }
+}

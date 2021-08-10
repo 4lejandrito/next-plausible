@@ -19,7 +19,7 @@
     "analytics"
   ],
   "scripts": {
-    "test": "cd test/page && yarn && yarn test && cd ../app && yarn && yarn test && cd ../proxy && yarn && yarn test",
+    "test": "cd test && yarn && yarn test",
     "start": "rollup -c -w",
     "build": "rollup -c",
     "prepublishOnly": "NODE_ENV=production yarn build"
