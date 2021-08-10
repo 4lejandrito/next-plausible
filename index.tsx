@@ -26,6 +26,9 @@ const getScriptPath = (
   }
 }
 
+const getRemoteScriptName = (domain: string, selfHosted?: boolean) =>
+  selfHosted || domain === 'https://plausible.io' ? 'plausible' : 'index'
+
 export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
   return (nextConfig: NextConfig): NextConfig => ({
     ...nextConfig,
@@ -34,29 +37,37 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
       nextPlausibleProxyOptions: options,
     },
     rewrites: async () => {
-      options.customDomain = options.customDomain || 'https://plausible.io'
+      const { customDomain: domain = 'https://plausible.io' } = options
+      const getRemoteScript = (...modifiers: (ScriptModifier | null)[]) =>
+        domain +
+        getScriptPath(
+          {
+            scriptName: getRemoteScriptName(domain),
+          },
+          ...modifiers
+        )
       const plausibleRewrites = [
         {
           source: getScriptPath(options),
-          destination: `${options.customDomain}/js/plausible.js`,
+          destination: getRemoteScript(),
         },
         {
           source: getScriptPath(options, 'exclusions'),
-          destination: `${options.customDomain}/js/plausible.exclusions.js`,
+          destination: getRemoteScript('exclusions'),
         },
         {
           source: getScriptPath(options, 'outbound-links'),
-          destination: `${options.customDomain}/js/plausible.outbound-links.js`,
+          destination: getRemoteScript('outbound-links'),
         },
         {
           source: getScriptPath(options, 'outbound-links', 'exclusions'),
-          destination: `${options.customDomain}/js/plausible.outbound-links.exclusions.js`,
+          destination: getRemoteScript('outbound-links', 'exclusions'),
         },
         {
           source: options.subdirectory
             ? `/${options.subdirectory}/api/event`
             : '/api/event',
-          destination: `${options.customDomain}/api/event`,
+          destination: `${domain}/api/event`,
         },
       ]
       const rewrites = await nextConfig.rewrites?.()
@@ -115,10 +126,7 @@ export default function PlausibleProvider(props: {
                   ...proxyOptions,
                   scriptName: proxyOptions
                     ? proxyOptions.scriptName
-                    : props.selfHosted ||
-                      customDomain === 'https://plausible.io'
-                    ? 'plausible'
-                    : 'index',
+                    : getRemoteScriptName(customDomain, props.selfHosted),
                 },
                 props.trackOutboundLinks ? 'outbound-links' : null,
                 props.exclude ? 'exclusions' : null
