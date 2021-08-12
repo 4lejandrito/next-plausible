@@ -1,1 +1,1 @@
-export default (_, res) => res.send('the script')
+export default (req, res) => res.send(`Fake ${req.query.scriptName}`)

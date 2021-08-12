@@ -47,7 +47,7 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
         domain +
         getScriptPath(
           {
-            scriptName: getRemoteScriptName(domain),
+            scriptName: getRemoteScriptName(domain, domain !== plausibleDomain),
           },
           ...modifiers
         )

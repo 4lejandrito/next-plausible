@@ -2,7 +2,8 @@ const { withPlausibleProxy } = require('../../dist')
 
 module.exports = withPlausibleProxy({
   // This just proves that our customDomain mapping works
-  customDomain: 'https://localhost:3000',
+  customDomain: 'http://localhost:3000',
+  subdirectory: 'test',
 })({
   redirects: () => [
     {
