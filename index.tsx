@@ -34,6 +34,9 @@ const getRemoteScriptName = (domain: string, selfHosted?: boolean) =>
 const getDomain = (options: { customDomain?: string }) =>
   options.customDomain ?? plausibleDomain
 
+const getApiEndpoint = (options: NextPlausibleProxyOptions) =>
+  options.subdirectory ? `/${options.subdirectory}/api/event` : '/api/event'
+
 export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
   return (nextConfig: NextConfig): NextConfig => ({
     ...nextConfig,
@@ -69,9 +72,7 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           destination: getRemoteScript('outbound-links', 'exclusions'),
         },
         {
-          source: options.subdirectory
-            ? `/${options.subdirectory}/api/event`
-            : '/api/event',
+          source: getApiEndpoint(options),
           destination: `${domain}/api/event`,
         },
       ]
@@ -115,11 +116,7 @@ export default function PlausibleProvider(props: {
           <script
             async
             defer
-            data-api={
-              proxyOptions?.subdirectory
-                ? `/${proxyOptions.subdirectory}/api/event`
-                : undefined
-            }
+            data-api={proxyOptions ? getApiEndpoint(proxyOptions) : undefined}
             data-domain={props.domain}
             data-exclude={props.exclude}
             src={
