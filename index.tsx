@@ -58,22 +58,27 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
         {
           source: getScriptPath(options),
           destination: getRemoteScript(),
+          locale: false,
         },
         {
           source: getScriptPath(options, 'exclusions'),
           destination: getRemoteScript('exclusions'),
+          locale: false,
         },
         {
           source: getScriptPath(options, 'outbound-links'),
           destination: getRemoteScript('outbound-links'),
+          locale: false,
         },
         {
           source: getScriptPath(options, 'outbound-links', 'exclusions'),
           destination: getRemoteScript('outbound-links', 'exclusions'),
+          locale: false,
         },
         {
           source: getApiEndpoint(options),
           destination: `${domain}/api/event`,
+          locale: false,
         },
       ]
       const rewrites = await nextConfig.rewrites?.()
