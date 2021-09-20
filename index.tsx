@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
 import { NextConfig } from 'next/dist/next-server/server/config-shared'
+import { Rewrite } from 'next/dist/lib/load-custom-routes'
 import getConfig from 'next/config'
 
 type NextPlausibleProxyOptions = {
@@ -54,7 +55,7 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           },
           ...modifiers
         )
-      const plausibleRewrites = [
+      const plausibleRewrites: Rewrite[] = [
         {
           source: getScriptPath(options),
           destination: getRemoteScript(),
