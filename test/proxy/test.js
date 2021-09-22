@@ -1,5 +1,6 @@
 const cheerio = require('cheerio')
 const axios = require('axios')
+const puppeteer = require('puppeteer')
 
 const url = 'http://localhost:3000'
 
@@ -82,6 +83,25 @@ describe('PlausibleProvider', () => {
           '/js/script.outbound-links.exclusions.js'
         )
       })
+    })
+  })
+
+  describe('when tracking a 404 page', () => {
+    test('there are 2 events sent', async () => {
+      const browser = await puppeteer.launch()
+      try {
+        const page = await browser.newPage()
+        let plausibleEvents = 0
+        page.on('console', (message) => {
+          if (message.text().includes('Ignoring Event')) {
+            plausibleEvents += 1
+          }
+        })
+        await page.goto(`${url}/notFound`)
+        expect(plausibleEvents).toBe(2)
+      } finally {
+        await browser.close()
+      }
     })
   })
 })
