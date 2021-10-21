@@ -22,7 +22,8 @@
     "test": "cd test && yarn && yarn test",
     "start": "rollup -c -w",
     "build": "rollup -c",
-    "prepublishOnly": "NODE_ENV=production yarn build"
+    "prepublishOnly": "NODE_ENV=production yarn build",
+    "prepare": "husky install"
   },
   "peerDependencies": {
     "next": "^9.4.0 || ^10.0.0 || ^11.0.0",
@@ -30,17 +31,17 @@
     "react-dom": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2",
-    "@types/react": "^17.0.11",
-    "husky": ">=4",
-    "lint-staged": ">=11.0.0",
+    "@types/node": "^16.11.1",
+    "@types/react": "^17.0.31",
+    "husky": "^7.0.4",
+    "lint-staged": ">=11.2.3",
     "next": "11.0.0",
-    "prettier": "^2.3.1",
+    "prettier": "^2.4.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "rollup": "^2.52.1",
+    "rollup": "^2.58.0",
     "rollup-plugin-typescript2": "^0.30.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.4.4"
   },
   "lint-staged": {
     "*.{js,ts,tsx,md,json,html,css,scss,webmanifest}": "prettier --write"
@@ -48,10 +49,5 @@
   "prettier": {
     "semi": false,
     "singleQuote": true
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
