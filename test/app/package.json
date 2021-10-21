@@ -7,14 +7,5 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
-  },
-  "dependencies": {
-    "next": "11.0.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "cheerio": "^1.0.0-rc.10",
-    "jest": "^27.0.4"
   }
 }
