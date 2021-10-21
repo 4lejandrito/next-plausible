@@ -1,5 +1,38 @@
 # Changelog
 
+## [v3.0.0](https://github.com/4lejandrito/next-plausible/tree/v3.0.0) (2021-10-21)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v2.1.4...v3.0.0)
+
+## [v2.1.4](https://github.com/4lejandrito/next-plausible/tree/v2.1.4) (2021-10-21)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v2.1.3...v2.1.4)
+
+## [v2.1.3](https://github.com/4lejandrito/next-plausible/tree/v2.1.3) (2021-09-22)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v2.1.2...v2.1.3)
+
+**Closed issues:**
+
+- Events Tracked Immediately with `useEffect` Fail to Send [\#24](https://github.com/4lejandrito/next-plausible/issues/24)
+
+## [v2.1.2](https://github.com/4lejandrito/next-plausible/tree/v2.1.2) (2021-09-17)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v2.1.1...v2.1.2)
+
+**Closed issues:**
+
+- scriptname is index.js instead of plausible.js for selfHosted [\#20](https://github.com/4lejandrito/next-plausible/issues/20)
+
+## [v2.1.1](https://github.com/4lejandrito/next-plausible/tree/v2.1.1) (2021-08-12)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v2.1.0...v2.1.1)
+
+**Closed issues:**
+
+- Support custom domains for proxy [\#18](https://github.com/4lejandrito/next-plausible/issues/18)
+- Is there a changelog? [\#17](https://github.com/4lejandrito/next-plausible/issues/17)
+
 ## [v2.1.0](https://github.com/4lejandrito/next-plausible/tree/v2.1.0) (2021-08-10)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v2.0.0...v2.1.0)
