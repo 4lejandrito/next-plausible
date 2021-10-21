@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
-import { NextConfig } from 'next/dist/next-server/server/config-shared'
+import { NextConfig } from 'next'
 import getConfig from 'next/config'
 
 type NextPlausibleProxyOptions = {

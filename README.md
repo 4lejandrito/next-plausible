@@ -4,6 +4,8 @@ Simple integration for https://plausible.io analytics and https://nextjs.org.
 
 See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5c4da5da5aeabaa792a5f42c21a1ed) for a real world example.
 
+**Important:** If you're using a version of next lower than `11.1.0` please use `next-plausible@2` to avoid type checking errors (see https://github.com/4lejandrito/next-plausible/issues/25).
+
 ## Usage
 
 ### Include the analytics script

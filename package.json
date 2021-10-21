@@ -26,7 +26,7 @@
     "prepare": "husky install"
   },
   "peerDependencies": {
-    "next": "^9.4.0 || ^10.0.0 || ~11.0.0",
+    "next": "^11.1.0",
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0"
   },
@@ -35,7 +35,7 @@
     "@types/react": "^17.0.31",
     "husky": "^7.0.4",
     "lint-staged": ">=11.2.3",
-    "next": "11.0.0",
+    "next": "11.1.2",
     "prettier": "^2.4.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
