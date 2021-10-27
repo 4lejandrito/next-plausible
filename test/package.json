@@ -14,7 +14,7 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.10",
     "jest": "^27.3.1",
     "puppeteer": "^10.4.0",
