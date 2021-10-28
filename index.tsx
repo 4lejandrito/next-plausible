@@ -96,6 +96,7 @@ export default function PlausibleProvider(props: {
   children: ReactNode | ReactNode[]
   trackOutboundLinks?: boolean
   exclude?: string
+  local?: boolean
   selfHosted?: boolean
   enabled?: boolean
   integrity?: string
@@ -129,7 +130,8 @@ export default function PlausibleProvider(props: {
                     : getRemoteScriptName(domain, props.selfHosted),
                 },
                 props.trackOutboundLinks ? 'outbound-links' : null,
-                props.exclude ? 'exclusions' : null
+                props.exclude ? 'exclusions' : null,
+                props.local ? 'local' : null
               )
             }
             integrity={props.integrity}
