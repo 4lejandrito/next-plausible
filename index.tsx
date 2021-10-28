@@ -68,12 +68,8 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           destination: getRemoteScript('outbound-links'),
         },
         {
-          source: getScriptPath(options, 'local'),
-          destination: getRemoteScript('local'),
-        },
-        {
-          source: getScriptPath(options, 'outbound-links', 'exclusions', 'local'),
-          destination: getRemoteScript('outbound-links', 'exclusions', 'local'),
+          source: getScriptPath(options, 'outbound-links', 'exclusions'),
+          destination: getRemoteScript('outbound-links', 'exclusions'),
         },
         {
           source: getApiEndpoint(options),
