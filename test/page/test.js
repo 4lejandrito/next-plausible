@@ -71,6 +71,19 @@ describe('PlausibleProvider', () => {
     })
   })
 
+  describe('when tracking localhost events like <PlausibleProvider domain="example.com" trackLocalhost />', () => {
+    const $ = cheerio.load(fs.readFileSync('./out/trackLocalhost.html', 'utf8'))
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('points to https://plausible.io/js/plausible.local.js', () => {
+        expect(script.attr('src')).toBe(
+          'https://plausible.io/js/plausible.local.js'
+        )
+      })
+    })
+  })
+
   describe('when tracking outbound links like <PlausibleProvider domain="example.com" trackOutboundLinks />', () => {
     const $ = cheerio.load(
       fs.readFileSync('./out/trackOutboundLinks.html', 'utf8')

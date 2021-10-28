@@ -27,6 +27,10 @@ describe('PlausibleProvider', () => {
 describe('The script at', () => {
   ;[
     {
+      source: '/test/js/script.local.js',
+      destination: `${url}/js/plausible.local.js`,
+    },
+    {
       source: '/test/js/script.exclusions.js',
       destination: `${url}/js/plausible.exclusions.js`,
     },

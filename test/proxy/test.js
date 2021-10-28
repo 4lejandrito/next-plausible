@@ -63,6 +63,21 @@ describe('PlausibleProvider', () => {
     })
   })
 
+  describe('when tracking localhost events like <PlausibleProvider domain="example.com" trackLocalhost />', () => {
+    let script
+
+    beforeAll(async () => {
+      const $ = cheerio.load((await axios(`${url}/trackLocalhost`)).data)
+      script = $('head > script[data-domain="example.com"]')
+    })
+
+    describe('the script', () => {
+      test('points to /js/script.local.js', () => {
+        expect(script.attr('src')).toBe('/js/script.local.js')
+      })
+    })
+  })
+
   describe('when tracking outbound links and excluding a page like <PlausibleProvider domain="example.com" trackOutboundLinks exclude="page" />', () => {
     let script
 
