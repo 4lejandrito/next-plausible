@@ -9,7 +9,7 @@ type NextPlausibleProxyOptions = {
   customDomain?: string
 }
 
-type ScriptModifier = 'exclusions' | 'outbound-links' | 'local'
+type ScriptModifier = 'exclusions' | 'outbound-links' | 'local' | 'manual'
 
 const getScriptPath = (
   options: NextPlausibleProxyOptions,
@@ -64,6 +64,10 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           destination: getRemoteScript('local'),
         },
         {
+          source: getScriptPath(options, 'manual'),
+          destination: getRemoteScript('manual'),
+        },
+        {
           source: getScriptPath(options, 'exclusions'),
           destination: getRemoteScript('exclusions'),
         },
@@ -98,6 +102,7 @@ export default function PlausibleProvider(props: {
   domain: string
   customDomain?: string
   children: ReactNode | ReactNode[]
+  manual?: boolean
   trackLocalhost?: boolean
   trackOutboundLinks?: boolean
   exclude?: string
@@ -134,6 +139,7 @@ export default function PlausibleProvider(props: {
                     : getRemoteScriptName(domain, props.selfHosted),
                 },
                 props.trackLocalhost ? 'local' : null,
+                props.manual ? 'manual' : null,
                 props.trackOutboundLinks ? 'outbound-links' : null,
                 props.exclude ? 'exclusions' : null
               )

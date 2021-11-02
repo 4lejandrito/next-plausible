@@ -78,6 +78,21 @@ describe('PlausibleProvider', () => {
     })
   })
 
+  describe('when disabling automatic page events like <PlausibleProvider domain="example.com" manual />', () => {
+    let script
+
+    beforeAll(async () => {
+      const $ = cheerio.load((await axios(`${url}/manual`)).data)
+      script = $('head > script[data-domain="example.com"]')
+    })
+
+    describe('the script', () => {
+      test('points to /js/script.manual.js', () => {
+        expect(script.attr('src')).toBe('/js/script.manual.js')
+      })
+    })
+  })
+
   describe('when tracking outbound links and excluding a page like <PlausibleProvider domain="example.com" trackOutboundLinks exclude="page" />', () => {
     let script
 
