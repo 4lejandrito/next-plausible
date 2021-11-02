@@ -84,6 +84,19 @@ describe('PlausibleProvider', () => {
     })
   })
 
+  describe('when disabling automatic page events like <PlausibleProvider domain="example.com" manual />', () => {
+    const $ = cheerio.load(fs.readFileSync('./out/manual.html', 'utf8'))
+    const script = $('head > script[data-domain="example.com"]')
+
+    describe('the script', () => {
+      test('points to https://plausible.io/js/plausible.manual.js', () => {
+        expect(script.attr('src')).toBe(
+          'https://plausible.io/js/plausible.manual.js'
+        )
+      })
+    })
+  })
+
   describe('when tracking outbound links like <PlausibleProvider domain="example.com" trackOutboundLinks />', () => {
     const $ = cheerio.load(
       fs.readFileSync('./out/trackOutboundLinks.html', 'utf8')
