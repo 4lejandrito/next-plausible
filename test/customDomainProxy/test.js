@@ -31,6 +31,10 @@ describe('The script at', () => {
       destination: `${url}/js/plausible.local.js`,
     },
     {
+      source: '/test/js/script.manual.js',
+      destination: `${url}/js/plausible.manual.js`,
+    },
+    {
       source: '/test/js/script.exclusions.js',
       destination: `${url}/js/plausible.exclusions.js`,
     },
