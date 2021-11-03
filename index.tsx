@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import Head from 'next/head'
 import { NextConfig } from 'next'
 import getConfig from 'next/config'
+import getCombinations from './lib/combinations'
 
 type NextPlausibleProxyOptions = {
   subdirectory?: string
@@ -9,7 +10,13 @@ type NextPlausibleProxyOptions = {
   customDomain?: string
 }
 
-type ScriptModifier = 'exclusions' | 'outbound-links' | 'local' | 'manual'
+const allModifiers = [
+  'exclusions',
+  'local',
+  'manual',
+  'outbound-links',
+] as const
+type ScriptModifier = typeof allModifiers[number]
 
 const getScriptPath = (
   options: NextPlausibleProxyOptions,
@@ -17,7 +24,7 @@ const getScriptPath = (
 ) => {
   const basePath = `/js/${[
     options.scriptName ?? 'script',
-    ...modifiers.filter((modifier) => modifier !== null),
+    ...modifiers.sort().filter((modifier) => modifier !== null),
   ].join('.')}.js`
   if (options.subdirectory) {
     return `/${options.subdirectory}${basePath}`
@@ -59,26 +66,10 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           source: getScriptPath(options),
           destination: getRemoteScript(),
         },
-        {
-          source: getScriptPath(options, 'local'),
-          destination: getRemoteScript('local'),
-        },
-        {
-          source: getScriptPath(options, 'manual'),
-          destination: getRemoteScript('manual'),
-        },
-        {
-          source: getScriptPath(options, 'exclusions'),
-          destination: getRemoteScript('exclusions'),
-        },
-        {
-          source: getScriptPath(options, 'outbound-links'),
-          destination: getRemoteScript('outbound-links'),
-        },
-        {
-          source: getScriptPath(options, 'outbound-links', 'exclusions'),
-          destination: getRemoteScript('outbound-links', 'exclusions'),
-        },
+        ...getCombinations(allModifiers).map((modifiers) => ({
+          source: getScriptPath(options, ...modifiers),
+          destination: getRemoteScript(...modifiers),
+        })),
         {
           source: getApiEndpoint(options),
           destination: `${domain}/api/event`,

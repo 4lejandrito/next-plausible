@@ -123,9 +123,9 @@ describe('PlausibleProvider', () => {
         expect(script.data('exclude')).toBe('page')
       })
 
-      test('points to https://plausible.io/js/plausible.outbound-links.exclusions.js', () => {
+      test('points to https://plausible.io/js/plausible.exclusions.outbound-links.js', () => {
         expect(script.attr('src')).toBe(
-          'https://plausible.io/js/plausible.outbound-links.exclusions.js'
+          'https://plausible.io/js/plausible.exclusions.outbound-links.js'
         )
       })
     })
