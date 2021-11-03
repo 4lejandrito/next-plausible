@@ -6,7 +6,7 @@ export default function Home() {
       domain="example.com"
       trackLocalhost
       trackOutboundLinks
-      manual
+      manualPageviews
       exclude="page"
     />
   )

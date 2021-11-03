@@ -93,7 +93,7 @@ export default function PlausibleProvider(props: {
   domain: string
   customDomain?: string
   children: ReactNode | ReactNode[]
-  manual?: boolean
+  manualPageviews?: boolean
   trackLocalhost?: boolean
   trackOutboundLinks?: boolean
   exclude?: string
@@ -130,7 +130,7 @@ export default function PlausibleProvider(props: {
                     : getRemoteScriptName(domain, props.selfHosted),
                 },
                 props.trackLocalhost ? 'local' : null,
-                props.manual ? 'manual' : null,
+                props.manualPageviews ? 'manual' : null,
                 props.trackOutboundLinks ? 'outbound-links' : null,
                 props.exclude ? 'exclusions' : null
               )
