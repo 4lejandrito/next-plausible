@@ -1,5 +1,5 @@
 import PlausibleProvider from '../../../dist'
 
 export default function Home() {
-  return <PlausibleProvider domain="example.com" manual />
+  return <PlausibleProvider domain="example.com" manualPageviews />
 }
