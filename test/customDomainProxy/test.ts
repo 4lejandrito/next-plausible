@@ -1,11 +1,12 @@
-const cheerio = require('cheerio')
-const axios = require('axios')
+import cheerio, { Cheerio, Element } from 'cheerio'
+import axios from 'axios'
+import getCombinations from '../../lib/combinations'
 
 const url = 'http://localhost:3000'
 
 describe('PlausibleProvider', () => {
   describe('when used like <PlausibleProvider domain="example.com">', () => {
-    let script
+    let script: Cheerio<Element>
 
     beforeAll(async () => {
       const $ = cheerio.load((await axios(url)).data)
@@ -27,29 +28,15 @@ describe('PlausibleProvider', () => {
 describe('The script at', () => {
   ;[
     {
-      source: '/test/js/script.local.js',
-      destination: `${url}/js/plausible.local.js`,
-    },
-    {
-      source: '/test/js/script.manual.js',
-      destination: `${url}/js/plausible.manual.js`,
-    },
-    {
-      source: '/test/js/script.exclusions.js',
-      destination: `${url}/js/plausible.exclusions.js`,
-    },
-    {
-      source: '/test/js/script.outbound-links.js',
-      destination: `${url}/js/plausible.outbound-links.js`,
-    },
-    {
-      source: '/test/js/script.outbound-links.exclusions.js',
-      destination: `${url}/js/plausible.outbound-links.exclusions.js`,
-    },
-    {
       source: '/test/js/script.js',
       destination: `${url}/js/plausible.js`,
     },
+    ...getCombinations(['exclusions', 'local', 'manual', 'outbound-links']).map(
+      (modifiers) => ({
+        source: `/test/js/script.${modifiers.join('.')}.js`,
+        destination: `${url}/js/plausible.${modifiers.join('.')}.js`,
+      })
+    ),
   ].map(({ source, destination }) => {
     describe(source, () => {
       test(`is proxied from ${destination}`, async () => {
