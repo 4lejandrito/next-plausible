@@ -75,6 +75,11 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           destination: `${domain}/api/event`,
         },
       ]
+
+      if (process.env.NEXT_PLAUSIBLE_DEBUG) {
+        console.log('plausibleRewrites = ', plausibleRewrites)
+      }
+
       const rewrites = await nextConfig.rewrites?.()
 
       if (!rewrites) {
