@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { NextConfig } from 'next'
 import getConfig from 'next/config'
 import getCombinations from './lib/combinations'
+import { Rewrite } from 'next/dist/lib/load-custom-routes'
 
 type NextPlausibleProxyOptions = {
   subdirectory?: string
@@ -61,10 +62,11 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           },
           ...modifiers
         )
-      const plausibleRewrites = [
+      const plausibleRewrites: Rewrite[] = [
         {
           source: getScriptPath(options),
           destination: getRemoteScript(),
+          locale: false,
         },
         ...getCombinations(allModifiers).map((modifiers) => ({
           source: getScriptPath(options, ...modifiers),
@@ -73,6 +75,7 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
         {
           source: getApiEndpoint(options),
           destination: `${domain}/api/event`,
+          locale: false,
         },
       ]
       const rewrites = await nextConfig.rewrites?.()
