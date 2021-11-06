@@ -42,7 +42,7 @@ const getDomain = (options: { customDomain?: string }) =>
   options.customDomain ?? plausibleDomain
 
 const getApiEndpoint = (options: NextPlausibleProxyOptions) =>
-  options.subdirectory ? `/${options.subdirectory}/api/event` : '/api/event'
+  `/${options.subdirectory ?? 'proxy'}/api/event`
 
 export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
   return (nextConfig: NextConfig): NextConfig => ({

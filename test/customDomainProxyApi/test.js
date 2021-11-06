@@ -18,7 +18,7 @@ describe('PlausibleProvider', () => {
       })
 
       test('uses the proxied api endpoint', () => {
-        expect(script.attr('data-api')).toBe('/api/event')
+        expect(script.attr('data-api')).toBe('/proxy/api/event')
       })
     })
   })
