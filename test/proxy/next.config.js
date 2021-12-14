@@ -1,3 +1,7 @@
 const { withPlausibleProxy } = require('../../dist')
 
-module.exports = withPlausibleProxy()
+module.exports = withPlausibleProxy()({
+  images: {
+    domains: ['github.githubassets.com'],
+  },
+})

@@ -9,5 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
+  },
+  "dependencies": {
+    "sharp": "^0.29.3"
   }
 }

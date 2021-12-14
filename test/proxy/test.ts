@@ -18,6 +18,27 @@ describe('PlausibleProvider', () => {
       expect(script).toBeDefined()
     })
 
+    it('loads external images with next/image properly', async () => {
+      const browser = await puppeteer.launch()
+      try {
+        const page = await browser.newPage()
+        await page.goto(`${url}/withExternalImage`)
+        expect(
+          (
+            await axios(
+              `${url}/${
+                (await page.$eval('img', (element) =>
+                  element.getAttribute('src')
+                )) as string
+              }`
+            )
+          ).status
+        ).toBe(200)
+      } finally {
+        await browser.close()
+      }
+    })
+
     describe('the script', () => {
       test('loads asynchronously', () => {
         expect(script.attr('async')).toBeDefined()
