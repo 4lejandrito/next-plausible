@@ -145,11 +145,13 @@ export default function PlausibleProvider(props: {
             {...props.scriptProps}
           />
         )}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`,
-          }}
-        />
+        {enabled && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`,
+            }}
+          />
+        )}
       </Head>
       {props.children}
     </>
