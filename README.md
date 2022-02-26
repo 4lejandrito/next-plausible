@@ -8,26 +8,12 @@ See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5
 
 ## Usage
 
-### Include the analytics script
+### Include the Analytics Script
 
-To include the Plausible analytics script in your NextJS page just use the `PlausibleProvider` component:
-
-```jsx
-import PlausibleProvider from 'next-plausible'
-
-export default Home() {
-  return (
-    <PlausibleProvider domain="example.com">
-      <h1>My Site</h1>
-      ...
-    </PlausibleProvider>
-  )
-}
-```
-
-If you want to include it globally for all your pages you can use the component in your custom [`_app.js`](https://nextjs.org/docs/advanced-features/custom-app) file:
+To enable Plausible analytics in your Next.js app you'll need to expose the Plausible context, `<PlausibleProvider />`, at the top level of your application inside [`_app.js`](https://nextjs.org/docs/advanced-features/custom-app):
 
 ```jsx
+// pages/_app.js
 import PlausibleProvider from 'next-plausible'
 
 export default function MyApp({ Component, pageProps }) {
@@ -39,7 +25,23 @@ export default function MyApp({ Component, pageProps }) {
 }
 ```
 
-#### `PlausibleProvider` props
+If you want to enable Plausible analytics only on a single page you can wrap the page in a `PlausibleProvider` component:
+
+```jsx
+// pages/home.js
+import PlausibleProvider from 'next-plausible'
+
+export default Home() {
+  return (
+    <PlausibleProvider domain="example.com">
+      <h1>My Site</h1>
+      {/* ... */}
+    </PlausibleProvider>
+  )
+}
+```
+
+#### `PlausibleProvider` Props
 
 | Name                 | Description                                                                                                                                                                         |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -54,7 +56,7 @@ export default function MyApp({ Component, pageProps }) {
 | `integrity`          | Optionally define the [subresource integrity](https://infosec.mozilla.org/guidelines/web_security#subresource-integrity) attribute for extra security.                              |
 | `scriptProps`        | Optionally override any of the props passed to the script element. See [example](test/page/pages/scriptProps.js).                                                                   |
 
-### Proxy the analytics script
+### Proxy the Analytics Script
 
 To avoid being blocked by adblockers plausible [recommends proxying the script](https://plausible.io/docs/proxy/introduction). To do this you need to wrap your `next.config.js` with the `withPlausibleProxy` function:
 
@@ -93,7 +95,7 @@ module.exports = withPlausibleProxy({
 
 This will load the script from `/js/yoursubdirectory/scriptName.js` and fetch it from `http://example.com/js/script.js`.
 
-### Send custom events
+### Send Custom Events
 
 Plausible supports custom events as described at https://plausible.io/docs/custom-event-goals. This package provides the `usePlausible` hook to safely access the `plausible` function like this:
 
