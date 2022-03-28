@@ -40,8 +40,7 @@ describe('PlausibleProvider', () => {
     })
 
     describe('the script', () => {
-      test('loads asynchronously', () => {
-        expect(script.attr('async')).toBeDefined()
+      test('is deferred', () => {
         expect(script.attr('defer')).toBeDefined()
       })
 
@@ -171,6 +170,7 @@ describe('PlausibleProvider', () => {
           }
         })
         await page.goto(`${url}/notFound`)
+        await page.waitForFunction('!!window.plausible')
         expect(plausibleEvents).toBe(2)
       } finally {
         await browser.close()
