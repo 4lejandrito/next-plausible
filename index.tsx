@@ -120,7 +120,6 @@ export default function PlausibleProvider(props: {
       <Head>
         {enabled && (
           <script
-            async
             defer
             data-api={proxyOptions ? getApiEndpoint(proxyOptions) : undefined}
             data-domain={props.domain}
