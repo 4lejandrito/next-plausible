@@ -18,8 +18,7 @@ describe('PlausibleProvider', () => {
     })
 
     describe('the script', () => {
-      test('loads asynchronously', () => {
-        expect(script.attr('async')).toBeDefined()
+      test('is deferred', () => {
         expect(script.attr('defer')).toBeDefined()
       })
 
