@@ -1,5 +1,80 @@
 # Changelog
 
+## [v3.1.7](https://github.com/4lejandrito/next-plausible/tree/v3.1.7) (2022-03-29)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.6...v3.1.7)
+
+**Closed issues:**
+
+- Inject script using `next/script` [\#40](https://github.com/4lejandrito/next-plausible/issues/40)
+
+**Merged pull requests:**
+
+- Remove `async` attribute [\#41](https://github.com/4lejandrito/next-plausible/pull/41) ([garritfra](https://github.com/garritfra))
+
+## [v3.1.6](https://github.com/4lejandrito/next-plausible/tree/v3.1.6) (2022-03-14)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.5...v3.1.6)
+
+**Closed issues:**
+
+- Wrap usePlausible in useCallback [\#38](https://github.com/4lejandrito/next-plausible/issues/38)
+
+**Merged pull requests:**
+
+- Always returning the same function [\#39](https://github.com/4lejandrito/next-plausible/pull/39) ([4lejandrito](https://github.com/4lejandrito))
+- Update README.md [\#37](https://github.com/4lejandrito/next-plausible/pull/37) ([alexanderbluhm](https://github.com/alexanderbluhm))
+
+## [v3.1.5](https://github.com/4lejandrito/next-plausible/tree/v3.1.5) (2022-02-21)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.4...v3.1.5)
+
+**Closed issues:**
+
+- Is tracking localhost real-time? [\#33](https://github.com/4lejandrito/next-plausible/issues/33)
+- withPlausibleProxy causes next/image requests to CDNs like Sanity.io 400 [\#32](https://github.com/4lejandrito/next-plausible/issues/32)
+- No requests made to self hosted instance [\#26](https://github.com/4lejandrito/next-plausible/issues/26)
+
+## [v3.1.4](https://github.com/4lejandrito/next-plausible/tree/v3.1.4) (2021-11-08)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.3...v3.1.4)
+
+**Closed issues:**
+
+- Proxy /api/event routes using withPlausibleProxy for custom domains [\#21](https://github.com/4lejandrito/next-plausible/issues/21)
+
+## [v3.1.3](https://github.com/4lejandrito/next-plausible/tree/v3.1.3) (2021-11-06)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.2...v3.1.3)
+
+## [v3.1.2](https://github.com/4lejandrito/next-plausible/tree/v3.1.2) (2021-11-05)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.1...v3.1.2)
+
+## [v3.1.1](https://github.com/4lejandrito/next-plausible/tree/v3.1.1) (2021-11-04)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v2.2.0...v3.1.1)
+
+## [v2.2.0](https://github.com/4lejandrito/next-plausible/tree/v2.2.0) (2021-11-03)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.0...v2.2.0)
+
+**Closed issues:**
+
+- Ability to track localhost traffic [\#27](https://github.com/4lejandrito/next-plausible/issues/27)
+
+## [v3.1.0](https://github.com/4lejandrito/next-plausible/tree/v3.1.0) (2021-11-03)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.0.1...v3.1.0)
+
+## [v3.0.1](https://github.com/4lejandrito/next-plausible/tree/v3.0.1) (2021-10-27)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.0.0...v3.0.1)
+
+**Closed issues:**
+
+- Types are incompatible with Next@11 [\#25](https://github.com/4lejandrito/next-plausible/issues/25)
+
 ## [v3.0.0](https://github.com/4lejandrito/next-plausible/tree/v3.0.0) (2021-10-21)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v2.1.4...v3.0.0)
