@@ -11,6 +11,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "sharp": "^0.29.3"
+    "sharp": "^0.30.3"
   }
 }
