@@ -9,6 +9,9 @@ type NextPlausibleProxyOptions = {
   scriptName?: string
   customDomain?: string
 }
+type NextPlausiblePublicProxyOptions = NextPlausibleProxyOptions & {
+  trailingSlash: boolean
+}
 
 const allModifiers = [
   'exclusions',
@@ -41,16 +44,22 @@ const getRemoteScriptName = (domain: string, selfHosted?: boolean) =>
 const getDomain = (options: { customDomain?: string }) =>
   options.customDomain ?? plausibleDomain
 
-const getApiEndpoint = (options: NextPlausibleProxyOptions) =>
-  `/${options.subdirectory ?? 'proxy'}/api/event`
+const getApiEndpoint = (options: NextPlausiblePublicProxyOptions) =>
+  `/${options.subdirectory ?? 'proxy'}/api/event${
+    options.trailingSlash ? '/' : ''
+  }`
 
 export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
   return (nextConfig: NextConfig): NextConfig => {
+    const nextPlausiblePublicProxyOptions: NextPlausiblePublicProxyOptions = {
+      ...options,
+      trailingSlash: !!nextConfig.trailingSlash,
+    }
     return {
       ...nextConfig,
       publicRuntimeConfig: {
         ...nextConfig.publicRuntimeConfig,
-        nextPlausibleProxyOptions: options,
+        nextPlausiblePublicProxyOptions,
       },
       rewrites: async () => {
         const domain = getDomain(options)
@@ -75,7 +84,7 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
             destination: getRemoteScript(...modifiers),
           })),
           {
-            source: getApiEndpoint(options),
+            source: getApiEndpoint(nextPlausiblePublicProxyOptions),
             destination: `${domain}/api/event`,
           },
         ]
@@ -117,8 +126,8 @@ export default function PlausibleProvider(props: {
 }) {
   const { enabled = process.env.NODE_ENV === 'production' } = props
   const domain = getDomain(props)
-  const proxyOptions: NextPlausibleProxyOptions | undefined =
-    getConfig()?.publicRuntimeConfig?.nextPlausibleProxyOptions
+  const proxyOptions: NextPlausiblePublicProxyOptions | undefined =
+    getConfig()?.publicRuntimeConfig?.nextPlausiblePublicProxyOptions
 
   return (
     <>
