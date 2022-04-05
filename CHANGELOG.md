@@ -1,5 +1,21 @@
 # Changelog
 
+## [v3.1.9](https://github.com/4lejandrito/next-plausible/tree/v3.1.9) (2022-04-05)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.8...v3.1.9)
+
+**Merged pull requests:**
+
+- Adds support for trailingSlash [\#44](https://github.com/4lejandrito/next-plausible/pull/44) ([4lejandrito](https://github.com/4lejandrito))
+
+## [v3.1.8](https://github.com/4lejandrito/next-plausible/tree/v3.1.8) (2022-03-31)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.7...v3.1.8)
+
+**Closed issues:**
+
+- Support for `next@canary` [\#42](https://github.com/4lejandrito/next-plausible/issues/42)
+
 ## [v3.1.7](https://github.com/4lejandrito/next-plausible/tree/v3.1.7) (2022-03-29)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.6...v3.1.7)
