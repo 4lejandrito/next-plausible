@@ -45,53 +45,58 @@ const getApiEndpoint = (options: NextPlausibleProxyOptions) =>
   `/${options.subdirectory ?? 'proxy'}/api/event`
 
 export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
-  return (nextConfig: NextConfig): NextConfig => ({
-    ...nextConfig,
-    publicRuntimeConfig: {
-      ...nextConfig.publicRuntimeConfig,
-      nextPlausibleProxyOptions: options,
-    },
-    rewrites: async () => {
-      const domain = getDomain(options)
-      const getRemoteScript = (...modifiers: (ScriptModifier | null)[]) =>
-        domain +
-        getScriptPath(
+  return (nextConfig: NextConfig): NextConfig => {
+    return {
+      ...nextConfig,
+      publicRuntimeConfig: {
+        ...nextConfig.publicRuntimeConfig,
+        nextPlausibleProxyOptions: options,
+      },
+      rewrites: async () => {
+        const domain = getDomain(options)
+        const getRemoteScript = (...modifiers: (ScriptModifier | null)[]) =>
+          domain +
+          getScriptPath(
+            {
+              scriptName: getRemoteScriptName(
+                domain,
+                domain !== plausibleDomain
+              ),
+            },
+            ...modifiers
+          )
+        const plausibleRewrites = [
           {
-            scriptName: getRemoteScriptName(domain, domain !== plausibleDomain),
+            source: getScriptPath(options),
+            destination: getRemoteScript(),
           },
-          ...modifiers
-        )
-      const plausibleRewrites = [
-        {
-          source: getScriptPath(options),
-          destination: getRemoteScript(),
-        },
-        ...getCombinations(allModifiers).map((modifiers) => ({
-          source: getScriptPath(options, ...modifiers),
-          destination: getRemoteScript(...modifiers),
-        })),
-        {
-          source: getApiEndpoint(options),
-          destination: `${domain}/api/event`,
-        },
-      ]
+          ...getCombinations(allModifiers).map((modifiers) => ({
+            source: getScriptPath(options, ...modifiers),
+            destination: getRemoteScript(...modifiers),
+          })),
+          {
+            source: getApiEndpoint(options),
+            destination: `${domain}/api/event`,
+          },
+        ]
 
-      if (process.env.NEXT_PLAUSIBLE_DEBUG) {
-        console.log('plausibleRewrites = ', plausibleRewrites)
-      }
+        if (process.env.NEXT_PLAUSIBLE_DEBUG) {
+          console.log('plausibleRewrites = ', plausibleRewrites)
+        }
 
-      const rewrites = await nextConfig.rewrites?.()
+        const rewrites = await nextConfig.rewrites?.()
 
-      if (!rewrites) {
-        return plausibleRewrites
-      } else if (Array.isArray(rewrites)) {
-        return rewrites.concat(plausibleRewrites)
-      } else {
-        rewrites.afterFiles = rewrites.afterFiles.concat(plausibleRewrites)
-        return rewrites
-      }
-    },
-  })
+        if (!rewrites) {
+          return plausibleRewrites
+        } else if (Array.isArray(rewrites)) {
+          return rewrites.concat(plausibleRewrites)
+        } else {
+          rewrites.afterFiles = rewrites.afterFiles.concat(plausibleRewrites)
+          return rewrites
+        }
+      },
+    }
+  }
 }
 
 export default function PlausibleProvider(props: {
