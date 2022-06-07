@@ -1,28 +1,22 @@
-import cheerio, { Cheerio, Element } from 'cheerio'
 import axios from 'axios'
 import getCombinations from '../../lib/combinations'
+import testPlausibleProvider from '../test'
 
 const url = 'http://localhost:3000'
 
-describe('PlausibleProvider', () => {
-  describe('when used like <PlausibleProvider domain="example.com">', () => {
-    let script: Cheerio<Element>
+testPlausibleProvider((withPage) => {
+  describe(
+    'when used like <PlausibleProvider domain="example.com">',
+    withPage('/', (scriptAttr) => {
+      describe('the script', () => {
+        test('points to /test/js/script.js', () =>
+          expect(scriptAttr('src')).resolves.toBe('/test/js/script.js'))
 
-    beforeAll(async () => {
-      const $ = cheerio.load((await axios(url)).data)
-      script = $('head > script[data-domain="example.com"]')
-    })
-
-    describe('the script', () => {
-      test('points to /test/js/script.js', () => {
-        expect(script.attr('src')).toBe('/test/js/script.js')
-      })
-
-      test('uses the proxied api endpoint', () => {
-        expect(script.attr('data-api')).toBe('/test/api/event')
+        test('uses the proxied api endpoint', () =>
+          expect(scriptAttr('data-api')).resolves.toBe('/test/api/event'))
       })
     })
-  })
+  )
 })
 
 describe('The script at', () => {
