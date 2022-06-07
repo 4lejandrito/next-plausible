@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "next build && next export && jest",
+    "test": "start-test test:start 3000 test:run",
+    "test:start": "next build && next start",
+    "test:run": "jest",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
