@@ -1,8 +1,6 @@
 import axios from 'axios'
 import getCombinations from '../../lib/combinations'
-import testPlausibleProvider from '../test'
-
-const url = 'http://localhost:3000'
+import testPlausibleProvider, { url } from '../test'
 
 testPlausibleProvider((withPage) => {
   describe(

@@ -3,8 +3,10 @@ import puppeteer from 'puppeteer'
 type ScriptAttr = (name: string) => Promise<string | null>
 type WithPage = (
   path: string,
-  fn: (scriptAttr: ScriptAttr) => void
+  fn: (scriptAttr: ScriptAttr, getPage: () => puppeteer.Page) => void
 ) => () => void
+
+export const url = 'http://localhost:3000'
 
 export default (fn: (withPage: WithPage) => void) =>
   describe('PlausibleProvider', () => {
@@ -18,8 +20,8 @@ export default (fn: (withPage: WithPage) => void) =>
       )
 
     const withPage: WithPage = (path, fn) => () => {
-      beforeAll(() => page.goto(`http://localhost:3000${path}`))
-      fn(scriptAttr)
+      beforeAll(() => page.goto(`${url}${path}`))
+      fn(scriptAttr, () => page)
     }
 
     beforeAll(async () => {

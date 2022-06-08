@@ -1,41 +1,36 @@
 import axios from 'axios'
-import puppeteer from 'puppeteer'
 import getCombinations from '../../lib/combinations'
-import testPlausibleProvider from '../test'
-
-const url = 'http://localhost:3000'
+import testPlausibleProvider, { url } from '../test'
 
 testPlausibleProvider((withPage) => {
   describe(
     'when used like <PlausibleProvider domain="example.com">',
     withPage('/', (scriptAttr) => {
-      it('loads external images with next/image properly', async () => {
-        const browser = await puppeteer.launch()
-        try {
-          const page = await browser.newPage()
-          await page.goto(`${url}/withExternalImage`)
-          expect(
-            (
-              await axios(
-                `${url}/${
-                  (await page.$eval('img', (element) =>
-                    element.getAttribute('src')
-                  )) as string
-                }`
-              )
-            ).status
-          ).toBe(200)
-        } finally {
-          await browser.close()
-        }
-      })
-
       describe('the script', () => {
         test('is deferred', () =>
           expect(scriptAttr('defer')).resolves.toBe('true'))
 
         test('points to /js/script.js', () =>
           expect(scriptAttr('src')).resolves.toBe('/js/script.js'))
+      })
+    })
+  )
+
+  describe(
+    'when using images with next/image',
+    withPage('/withExternalImage', (_, getPage) => {
+      it('loads them properly', async () => {
+        expect(
+          (
+            await axios(
+              `${url}/${
+                (await getPage().$eval('img', (element) =>
+                  element.getAttribute('src')
+                )) as string
+              }`
+            )
+          ).status
+        ).toBe(200)
       })
     })
   )
@@ -115,25 +110,22 @@ testPlausibleProvider((withPage) => {
     })
   )
 
-  describe('when tracking a 404 page', () => {
-    test('there are 2 events sent', async () => {
-      const browser = await puppeteer.launch()
-      try {
-        const page = await browser.newPage()
+  describe(
+    'when tracking a 404 page',
+    withPage('/notFound', (_, getPage) => {
+      test('there are 2 events sent', async () => {
         let plausibleEvents = 0
+        const page = getPage()
         page.on('console', (message) => {
           if (message.text().includes('Ignoring Event')) {
             plausibleEvents += 1
           }
         })
-        await page.goto(`${url}/notFound`)
         await page.waitForNetworkIdle()
         expect(plausibleEvents).toBe(2)
-      } finally {
-        await browser.close()
-      }
+      })
     })
-  })
+  )
 })
 
 describe('The script at', () => {
