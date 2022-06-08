@@ -1,5 +1,16 @@
 # Changelog
 
+## [v3.2.0](https://github.com/4lejandrito/next-plausible/tree/v3.2.0) (2022-06-07)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.9...v3.2.0)
+
+**Closed issues:**
+
+- Disable console logs [\#45](https://github.com/4lejandrito/next-plausible/issues/45)
+- Proxying causes the "event" request to redirect when trailingSlash: true [\#43](https://github.com/4lejandrito/next-plausible/issues/43)
+- Script usage warning when migrating to next@12.1 [\#36](https://github.com/4lejandrito/next-plausible/issues/36)
+- Support proxy to plausible.io/api/event with http proxy? [\#30](https://github.com/4lejandrito/next-plausible/issues/30)
+
 ## [v3.1.9](https://github.com/4lejandrito/next-plausible/tree/v3.1.9) (2022-04-05)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.1.8...v3.1.9)
