@@ -144,4 +144,4 @@ Only those events with the right props will be allowed to be sent using the `pla
 
 ## Developing
 
-- `yarn build` will generate the production scripts under the `dist` folder.
+- `npm run build` will generate the production scripts under the `dist` folder.

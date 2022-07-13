@@ -6,7 +6,7 @@
     "*"
   ],
   "scripts": {
-    "test": "yarn workspaces run test"
+    "test": "npm run test --workspaces"
   },
   "dependencies": {
     "next": "12.1.6",
