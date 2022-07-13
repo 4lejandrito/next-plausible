@@ -22,10 +22,10 @@
     "analytics"
   ],
   "scripts": {
-    "test": "cd test && yarn && yarn test",
+    "test": "cd test && npm i && npm test",
     "start": "rollup -c -w",
     "build": "rollup -c",
-    "prepublishOnly": "NODE_ENV=production yarn build",
+    "prepublishOnly": "NODE_ENV=production npm run build",
     "prepare": "husky install"
   },
   "peerDependencies": {
