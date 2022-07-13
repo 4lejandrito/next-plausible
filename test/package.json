@@ -6,7 +6,8 @@
     "*"
   ],
   "scripts": {
-    "test": "npm run test --workspaces"
+    "test": "npm run test --workspaces --if-present",
+    "test:vercel": "npm run test:vercel --workspaces --if-present"
   },
   "dependencies": {
     "next": "12.1.6",
@@ -19,6 +20,7 @@
     "jest": "^27.5.1",
     "puppeteer": "^13.5.2",
     "start-server-and-test": "^1.14.0",
-    "ts-jest": "^27.1.4"
+    "ts-jest": "^27.1.4",
+    "vercel": "^27.1.0"
   }
 }

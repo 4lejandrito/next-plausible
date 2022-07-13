@@ -8,7 +8,7 @@ type WithPage = (
 
 export const url = 'http://localhost:3000'
 
-export default (fn: (withPage: WithPage) => void) =>
+export default (fn: (withPage: WithPage) => void, baseUrl = url) =>
   describe('PlausibleProvider', () => {
     let browser: puppeteer.Browser, page: puppeteer.Page
 
@@ -20,7 +20,7 @@ export default (fn: (withPage: WithPage) => void) =>
       )
 
     const withPage: WithPage = (path, fn) => () => {
-      beforeAll(() => page.goto(`${url}${path}`))
+      beforeAll(() => page.goto(`${baseUrl}${path}`))
       fn(scriptAttr, () => page)
     }
 
