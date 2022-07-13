@@ -52,7 +52,7 @@ export default Home() {
 | `manualPageviews`    | Set this to `true` if you want to disable automatic pageview events as described [here](https://plausible.io/docs/script-extensions#plausiblemanualjs).                             |
 | `exclude`            | Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.                                                  |
 | `selfHosted`         | Set this to `true` if you are self hosting your Plausible instance. Otherwise you will get a 404 when requesting the script.                                                        |
-| `enabled`            | Use this to explicitly decide whether or not to render script. If not passed the script will be rendered when `process.env.NODE_ENV === 'production'`.                              |
+| `enabled`            | Use this to explicitly decide whether or not to render script. If not passed the script will be rendered in production environments.                                                |
 | `integrity`          | Optionally define the [subresource integrity](https://infosec.mozilla.org/guidelines/web_security#subresource-integrity) attribute for extra security.                              |
 | `scriptProps`        | Optionally override any of the props passed to the script element. See [example](test/page/pages/scriptProps.js).                                                                   |
 
