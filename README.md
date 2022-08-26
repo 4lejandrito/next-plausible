@@ -93,7 +93,7 @@ module.exports = withPlausibleProxy({
 })
 ```
 
-This will load the script from `/js/yoursubdirectory/scriptName.js` and fetch it from `http://example.com/js/script.js`.
+This will load the script from `/yoursubdirectory/js/scriptName.js` and fetch it from `http://example.com/js/script.js`.
 
 ### Send Custom Events
 
