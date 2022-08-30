@@ -48,6 +48,7 @@ export default Home() {
 | `domain`             | The domain of the site you want to monitor.                                                                                                                                         |
 | `customDomain`       | Set this if you use a custom domain to serve the analytics script. Defaults to https://plausible.io. See https://plausible.io/docs/custom-domain for more details.                  |
 | `trackOutboundLinks` | Set this to `true` if you want to enable [outbound link click tracking](https://plausible.io/docs/outbound-link-click-tracking#see-all-the-outbound-link-clicks-in-your-dashboard). |
+| `trackFileDownloads` | Set this to `true` if you want to enable [file download tracking](https://plausible.io/docs/file-downloads-tracking).                                                               |
 | `trackLocalhost`     | Set this to `true` if you want to enable localhost tracking as described [here](https://plausible.io/docs/script-extensions).                                                       |
 | `manualPageviews`    | Set this to `true` if you want to disable automatic pageview events as described [here](https://plausible.io/docs/script-extensions#plausiblemanualjs).                             |
 | `exclude`            | Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.                                                  |

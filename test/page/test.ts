@@ -111,6 +111,18 @@ testPlausibleProvider((withPage) => {
   )
 
   describe(
+    'when tracking file downloads like <PlausibleProvider domain="example.com" trackFileDownloads />',
+    withPage('/trackFileDownloads', (scriptAttr) => {
+      describe('the script', () => {
+        test('points to https://plausible.io/js/plausible.file-downloads.js', () =>
+          expect(scriptAttr('src')).resolves.toBe(
+            'https://plausible.io/js/plausible.file-downloads.js'
+          ))
+      })
+    })
+  )
+
+  describe(
     'when using a self hosted instance like <PlausibleProvider domain="example.com" customDomain="https://custom.example.com" selfHosted>',
     withPage('/selfHosted', (scriptAttr) => {
       describe('the script', () => {
