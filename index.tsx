@@ -18,6 +18,7 @@ const allModifiers = [
   'local',
   'manual',
   'outbound-links',
+  'file-downloads',
 ] as const
 type ScriptModifier = typeof allModifiers[number]
 
@@ -115,6 +116,7 @@ export default function PlausibleProvider(props: {
   manualPageviews?: boolean
   trackLocalhost?: boolean
   trackOutboundLinks?: boolean
+  trackFileDownloads?: boolean
   exclude?: string
   selfHosted?: boolean
   enabled?: boolean
@@ -154,7 +156,8 @@ export default function PlausibleProvider(props: {
               props.trackLocalhost ? 'local' : null,
               props.manualPageviews ? 'manual' : null,
               props.trackOutboundLinks ? 'outbound-links' : null,
-              props.exclude ? 'exclusions' : null
+              props.exclude ? 'exclusions' : null,
+              props.trackFileDownloads ? 'file-downloads' : null
             )
           }
           integrity={props.integrity}
