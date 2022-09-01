@@ -182,6 +182,8 @@ export default function PlausibleProvider(props: {
 type Props = Record<string, unknown> | never
 type EventOptions<P extends Props> = {
   props: P
+  // https://plausible.io/docs/custom-locations
+  u?: string
   callback?: VoidFunction
 }
 type EventOptionsTuple<P extends Props> = P extends never
