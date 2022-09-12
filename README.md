@@ -1,8 +1,8 @@
 # Next-Plausible &middot; [![npm version](https://img.shields.io/npm/v/next-plausible.svg?style=flat)](https://www.npmjs.com/package/next-plausible)
 
-Simple integration for https://plausible.io analytics and https://nextjs.org.
+Simple integration for https://nextjs.org and https://plausible.io analytics.
 
-See [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5c4da5da5aeabaa792a5f42c21a1ed) for a real world example.
+See it in action at https://next-plausible.vercel.app, and [this commit](https://github.com/4lejandrito/react-guitar/commit/a634d43cab5c4da5da5aeabaa792a5f42c21a1ed) for a real world example.
 
 **Important:** If you're using a version of next lower than `11.1.0` please use `next-plausible@2` to avoid type checking errors (see https://github.com/4lejandrito/next-plausible/issues/25).
 
@@ -94,7 +94,7 @@ module.exports = withPlausibleProxy({
 })
 ```
 
-This will load the script from `/yoursubdirectory/js/scriptName.js` and fetch it from `http://example.com/js/script.js`. 
+This will load the script from `/yoursubdirectory/js/scriptName.js` and fetch it from `http://example.com/js/script.js`.
 
 **Note:** If you are self hosting plausible, you need to set `customDomain` to your instance otherwise no data will be sent.
 

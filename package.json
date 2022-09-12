@@ -24,6 +24,7 @@
   "scripts": {
     "test": "cd test && npm i && npm test",
     "test:vercel": "cd test && npm i && npm run test:vercel",
+    "deploy:demo": "cd demo && npm i && npm run deploy",
     "start": "rollup -c -w",
     "build": "rollup -c",
     "prepublishOnly": "NODE_ENV=production npm run build",
