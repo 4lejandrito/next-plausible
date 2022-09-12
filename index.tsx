@@ -86,7 +86,10 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
             destination: getRemoteScript(...modifiers),
           })),
           {
-            source: getApiEndpoint(nextPlausiblePublicProxyOptions),
+            source: getApiEndpoint({
+              ...nextPlausiblePublicProxyOptions,
+              basePath: '',
+            }),
             destination: `${domain}/api/event`,
           },
         ]
