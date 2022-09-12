@@ -11,6 +11,7 @@ type NextPlausibleProxyOptions = {
 }
 type NextPlausiblePublicProxyOptions = NextPlausibleProxyOptions & {
   trailingSlash: boolean
+  basePath?: string
 }
 
 const allModifiers = [
@@ -23,18 +24,17 @@ const allModifiers = [
 type ScriptModifier = typeof allModifiers[number]
 
 const getScriptPath = (
-  options: NextPlausibleProxyOptions,
+  options: NextPlausibleProxyOptions & { basePath?: string },
   ...modifiers: (ScriptModifier | null)[]
 ) => {
-  const basePath = `/js/${[
+  let basePath = options.basePath ?? ''
+  if (options.subdirectory) {
+    basePath += `/${options.subdirectory}`
+  }
+  return `${basePath}/js/${[
     options.scriptName ?? 'script',
     ...modifiers.sort().filter((modifier) => modifier !== null),
   ].join('.')}.js`
-  if (options.subdirectory) {
-    return `/${options.subdirectory}${basePath}`
-  } else {
-    return basePath
-  }
 }
 
 const plausibleDomain = 'https://plausible.io'
@@ -55,6 +55,7 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
     const nextPlausiblePublicProxyOptions: NextPlausiblePublicProxyOptions = {
       ...options,
       trailingSlash: !!nextConfig.trailingSlash,
+      basePath: nextConfig.basePath,
     }
     return {
       ...nextConfig,

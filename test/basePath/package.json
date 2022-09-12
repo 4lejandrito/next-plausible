@@ -1,0 +1,13 @@
+{
+  "name": "next-plausible-test-proxy-base-path",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "start-test test:start http://localhost:3000/test test:run",
+    "test:start": "next build && next start",
+    "test:run": "jest",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}
