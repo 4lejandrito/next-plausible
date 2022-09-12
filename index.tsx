@@ -46,7 +46,7 @@ const getDomain = (options: { customDomain?: string }) =>
   options.customDomain ?? plausibleDomain
 
 const getApiEndpoint = (options: NextPlausiblePublicProxyOptions) =>
-  `/${options.subdirectory ?? 'proxy'}/api/event${
+  `${options.basePath ?? ''}/${options.subdirectory ?? 'proxy'}/api/event${
     options.trailingSlash ? '/' : ''
   }`
 

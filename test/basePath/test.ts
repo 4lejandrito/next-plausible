@@ -12,6 +12,9 @@ testPlausibleProvider((withPage) => {
 
         test('points to /test/js/script.js', () =>
           expect(scriptAttr('src')).resolves.toBe('/test/js/script.js'))
+
+        test('uses the proxied api endpoint', () =>
+          expect(scriptAttr('data-api')).resolves.toBe('/test/proxy/api/event'))
       })
     })
   )
