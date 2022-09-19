@@ -114,21 +114,55 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
 }
 
 export default function PlausibleProvider(props: {
-  domain: string
-  customDomain?: string
-  children: ReactNode | ReactNode[]
-  manualPageviews?: boolean
-  trackLocalhost?: boolean
-  trackOutboundLinks?: boolean
-  trackFileDownloads?: boolean
-  exclude?: string
-  selfHosted?: boolean
-  enabled?: boolean
-  integrity?: string
+  /**
+   * The domain of the site you want to monitor.
+   */
+  domain: string;
+  /**
+   * Set this if you use a custom domain to serve the analytics script. Defaults to https://plausible.io. See https://plausible.io/docs/custom-domain for more details.
+   */
+  customDomain?: string;
+
+  children: ReactNode | ReactNode[];
+  /**
+   * Set this to true if you want to disable automatic pageview events as described here.
+   */
+  manualPageviews?: boolean;
+  /**
+   * Set this to true if you want to enable localhost tracking as described https://plausible.io/docs/script-extensions.
+   */
+  trackLocalhost?: boolean;
+  /**
+   * Set this to true if you want to enable outbound link click tracking.
+   */
+  trackOutboundLinks?: boolean;
+  /**
+   * Set this to true if you want to enable file download tracking as described https://plausible.io/docs/file-downloads-tracking
+   */
+  trackFileDownloads?: boolean;
+  /**
+   * Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.
+   */
+  exclude?: string;
+  /**
+   *  Set this to true if you are self hosting your Plausible instance. Otherwise you will get a 404 when requesting the script.
+   */
+  selfHosted?: boolean;
+  /**
+   * Use this to explicitly decide whether or not to render script. If not passed the script will be rendered in production environments.
+   */
+  enabled?: boolean;
+  /**
+   * Optionally define the subresource integrity attribute for extra security. See https://infosec.mozilla.org/guidelines/web_security#subresource-integrity
+   */
+  integrity?: string;
+  /**
+   * Optionally override any of the props passed to the script element. See example here https://github.com/4lejandrito/next-plausible/blob/master/test/page/pages/scriptProps.js .
+   */
   scriptProps?: React.DetailedHTMLProps<
     React.ScriptHTMLAttributes<HTMLScriptElement>,
     HTMLScriptElement
-  >
+  >;
 }) {
   const {
     enabled = process.env.NODE_ENV === 'production' &&
