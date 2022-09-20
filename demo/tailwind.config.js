@@ -27,8 +27,15 @@ module.exports = {
         number: colors.amber[500],
       },
       help: colors.pink[500],
+      heart: {
+        DEFAULT: colors.pink[500],
+        burst: colors.pink[600],
+      },
     },
     extend: {
+      screens: {
+        lg: '1200px',
+      },
       keyframes: {
         appear: {
           '0%': { transform: 'translateY(-100%)' },
@@ -44,10 +51,15 @@ module.exports = {
             'animation-timing-function': 'ease-out',
           },
         },
+        beat: {
+          '0%, 100%': { transform: 'scale(100%)' },
+          '50%': { transform: 'scale(125%)' },
+        },
       },
       animation: {
         appear: 'appear .3s ease-in-out',
         wiggle: 'wiggle .15s 2',
+        beat: 'beat 200ms ease-in-out',
       },
     },
   },

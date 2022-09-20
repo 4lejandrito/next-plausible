@@ -4,6 +4,7 @@ import resolveConfig from 'tailwindcss/resolveConfig'
 import Clickable from '../components/Clickable'
 import EventLog from '../components/EventLog'
 import Head from 'next/head'
+import Like from '../components/Like'
 
 export async function getStaticProps() {
   const fullConfig = resolveConfig(tailwindConfig)
@@ -56,19 +57,22 @@ export default function Demo({ colors, domain }) {
             </Clickable>{' '}
             in your site.
           </p>
-          <div className="flex flex-wrap justify-center lg:justify-start gap-2 w-full">
-            <Clickable
-              className="w-full lg:w-auto flex items-center justify-center font-medium cursor-pointer rounded text-inverse-copy bg-inverse-background hover:bg-inverse-highlight text-center px-4 py-2"
-              href="https://github.com/4lejandrito/next-plausible"
-            >
-              Get started at GitHub
-            </Clickable>
-            <Clickable
-              className="w-full lg:w-auto flex items-center justify-center font-medium cursor-pointer rounded bg-primary-background hover:bg-primary-highlight text-center px-4 py-2"
-              href={`https://plausible.io/${domain}`}
-            >
-              Open Plausible's dashboard for this page
-            </Clickable>
+          <div className="flex flex-col-reverse lg:flex-row flex-wrap items-center justify-center lg:justify-start gap-2 w-full">
+            <div className="flex flex-wrap gap-2">
+              <Clickable
+                className="w-full lg:w-auto flex items-center justify-center font-medium cursor-pointer rounded text-inverse-copy bg-inverse-background hover:bg-inverse-highlight text-center px-4 py-2"
+                href="https://github.com/4lejandrito/next-plausible"
+              >
+                Get started at GitHub
+              </Clickable>
+              <Clickable
+                className="w-full lg:w-auto flex items-center justify-center font-medium cursor-pointer rounded bg-primary-background hover:bg-primary-highlight text-center px-4 py-2"
+                href={`https://plausible.io/${domain}`}
+              >
+                Open Plausible's dashboard for this page
+              </Clickable>
+            </div>
+            <Like className="mb-2 lg:mb-0" />
           </div>
         </div>
         <EventLog colors={colors} />
