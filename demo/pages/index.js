@@ -5,6 +5,7 @@ import Clickable from '../components/Clickable'
 import EventLog from '../components/EventLog'
 import Head from 'next/head'
 import Like from '../components/Like'
+import Usages from '../components/Usages'
 
 export async function getStaticProps() {
   const fullConfig = resolveConfig(tailwindConfig)
@@ -77,6 +78,7 @@ export default function Demo({ colors, domain }) {
         </div>
         <EventLog colors={colors} />
       </main>
+      <Usages />
       <footer className="p-4 bg-background-light w-full text-center">
         Made with ❤️ by{' '}
         <Clickable href="https://4lejandrito.dev">4lejandrito</Clickable>
