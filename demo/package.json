@@ -5,7 +5,7 @@
   "scripts": {
     "predev": "rm -rf next-plausible && cp -R ../dist next-plausible",
     "predeploy": "rm -rf next-plausible && cp -R ../dist next-plausible",
-    "sites": "node data/sites.js > data/sites.json",
+    "sites": "node data/sites.js > data/sites.json && prettier -w data",
     "dev": "next dev",
     "deploy": "vercel --yes --prod -t $VERCEL_TOKEN && vercel --yes -t $VERCEL_TOKEN"
   },
