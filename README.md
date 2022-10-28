@@ -79,8 +79,6 @@ This will set up the necessary rewrites as described [here](https://plausible.io
 }
 ```
 
-**Note:** This will only work if you serve your site using `next start`. Statically generated sites won't be able to rewrite the requests.
-
 Optionally you can overwrite the proxied script subdirectory and name, as well as the custom domain for the original script:
 
 ```js
@@ -98,8 +96,11 @@ module.exports = withPlausibleProxy({
 
 This will load the script from `/yoursubdirectory/js/scriptName.js` and fetch it from `http://example.com/js/script.js`.
 
-**Note:** If you are self hosting plausible, you need to set `customDomain` to your instance otherwise no data will be sent.
-**Note:** Bear in mind that tracking requests will be made to the same domain, so cookies will be forwarded. See https://github.com/4lejandrito/next-plausible/issues/67.
+**Notes:**
+
+- Proxying will only work if you serve your site using `next start`. Statically generated sites won't be able to rewrite the requests.
+- If you are self hosting plausible, you need to set `customDomain` to your instance otherwise no data will be sent.
+- Bear in mind that tracking requests will be made to the same domain, so cookies will be forwarded. See https://github.com/4lejandrito/next-plausible/issues/67.
 
 ### Send Custom Events
 
