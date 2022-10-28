@@ -99,6 +99,7 @@ module.exports = withPlausibleProxy({
 This will load the script from `/yoursubdirectory/js/scriptName.js` and fetch it from `http://example.com/js/script.js`.
 
 **Note:** If you are self hosting plausible, you need to set `customDomain` to your instance otherwise no data will be sent.
+**Note:** Bear in mind that tracking requests will be made to the same domain, so cookies will be forwarded. See https://github.com/4lejandrito/next-plausible/issues/67.
 
 ### Send Custom Events
 
