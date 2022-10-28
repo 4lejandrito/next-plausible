@@ -100,7 +100,25 @@ This will load the script from `/yoursubdirectory/js/scriptName.js` and fetch it
 
 - Proxying will only work if you serve your site using `next start`. Statically generated sites won't be able to rewrite the requests.
 - If you are self hosting plausible, you need to set `customDomain` to your instance otherwise no data will be sent.
-- Bear in mind that tracking requests will be made to the same domain, so cookies will be forwarded. See https://github.com/4lejandrito/next-plausible/issues/67.
+- Bear in mind that tracking requests will be made to the same domain, so cookies will be forwarded. See https://github.com/4lejandrito/next-plausible/issues/67. If this is an issue for you, from `next@13.0.0` you can use [middleware](https://nextjs.org/docs/advanced-features/middleware#setting-headers) to strip the cookies like this:
+
+  ```js
+  import { NextResponse } from 'next/server'
+
+  export function middleware(request) {
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('cookie', '')
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    })
+  }
+
+  export const config = {
+    matcher: '/proxy/api/event',
+  }
+  ```
 
 ### Send Custom Events
 
