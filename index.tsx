@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from 'react'
+import React, { ReactNode, useCallback, useEffect } from 'react'
 import Script from 'next/script'
 import { NextConfig } from 'next'
 import getConfig from 'next/config'
@@ -237,4 +237,15 @@ export function usePlausible<E extends Events = any>() {
     return (window as any).plausible?.(eventName, rest[0])
   },
   [])
+}
+
+export function usePlausibleEvent<E extends Events = any, N extends keyof E = any>(
+  eventName: N,
+  ...rest: EventOptionsTuple<E[N]>
+) {
+  const plausible = usePlausible();
+
+  useEffect(() => {
+      plausible(eventName, ...rest);
+  }, [plausible, eventName, rest]);
 }
