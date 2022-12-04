@@ -1,10 +1,11 @@
-import testPlausibleProvider from '../test'
+import testPlausibleProvider from '../fixtures'
+import { describe, it, expect } from '@jest/globals'
 
 testPlausibleProvider((withPage) => {
   describe(
     'when used in the _app.js file',
     withPage('/', (scriptAttr) => {
-      test('adds the plausible script', () =>
+      it('adds the plausible script', () =>
         expect(scriptAttr('src')).resolves.toBeDefined())
     })
   )

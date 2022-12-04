@@ -1,21 +1,22 @@
 import axios from 'axios'
 import getCombinations from '../../lib/combinations'
-import testPlausibleProvider, { url } from '../test'
+import testPlausibleProvider from '../fixtures'
+import { describe, it, expect } from '@jest/globals'
 
-testPlausibleProvider((withPage) => {
+testPlausibleProvider((withPage, url) => {
   describe(
     'when used like <PlausibleProvider domain="example.com">',
     withPage('/test', (scriptAttr) => {
       describe('the script', () => {
-        test('is deferred', () =>
+        it('is deferred', () =>
           expect(scriptAttr('defer')).resolves.toBe('true'))
 
-        test('points to /test/subdirectory/js/script.js', () =>
+        it('points to /test/subdirectory/js/script.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
             '/test/subdirectory/js/script.js'
           ))
 
-        test('uses the proxied api endpoint', () =>
+        it('uses the proxied api endpoint', () =>
           expect(scriptAttr('data-api')).resolves.toBe(
             '/test/subdirectory/api/event'
           ))
@@ -42,7 +43,7 @@ testPlausibleProvider((withPage) => {
       })),
     ].map(({ source, destination }) => {
       describe(source, () => {
-        test(`is proxied from ${destination}`, async () => {
+        it(`is proxied from ${destination}`, async () => {
           const sourceScriptContent = (await axios.get(`${url}${source}`)).data
           const destinationScriptContent = (await axios.get(destination)).data
           expect(sourceScriptContent).toBe(destinationScriptContent)

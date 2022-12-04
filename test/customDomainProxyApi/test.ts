@@ -1,14 +1,15 @@
-import testPlausibleProvider from '../test'
+import testPlausibleProvider from '../fixtures'
+import { describe, it, expect } from '@jest/globals'
 
 testPlausibleProvider((withPage) => {
   describe(
     'when used like <PlausibleProvider domain="example.com">',
     withPage('/', (scriptAttr) => {
       describe('the script', () => {
-        test('points to /js/script.js', () =>
+        it('points to /js/script.js', () =>
           expect(scriptAttr('src')).resolves.toBe('/js/script.js'))
 
-        test('uses the proxied api endpoint', () =>
+        it('uses the proxied api endpoint', () =>
           expect(scriptAttr('data-api')).resolves.toBe('/proxy/api/event'))
       })
     })

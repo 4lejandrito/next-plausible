@@ -1,5 +1,5 @@
 const { withPlausibleProxy } = require('../../dist')
 
 module.exports = withPlausibleProxy({
-  customDomain: 'http://custom.domain',
+  customDomain: `http://localhost:${process.env.PORT}`,
 })({})

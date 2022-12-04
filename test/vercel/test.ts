@@ -1,4 +1,5 @@
-import testPlausibleProvider from '../test'
+import { testNextPlausible as testPlausibleProvider } from '../fixtures'
+import { describe, it, expect } from '@jest/globals'
 
 testPlausibleProvider((withPage) => {
   describe(
@@ -7,7 +8,7 @@ testPlausibleProvider((withPage) => {
       '/',
       (scriptAttr) => {
         describe('the script', () => {
-          test('is rendered', () =>
+          it('is rendered', () =>
             expect(scriptAttr('src')).resolves.toBeDefined())
         })
       },
@@ -23,7 +24,7 @@ testPlausibleProvider((withPage) => {
       '/',
       (scriptAttr) => {
         describe('the script', () => {
-          test('is not rendered', () =>
+          it('is not rendered', () =>
             expect(scriptAttr('src')).rejects.toBeDefined())
         })
       },
