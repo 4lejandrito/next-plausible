@@ -1,7 +1,6 @@
 import React, { ReactNode, useCallback } from 'react'
 import Script from 'next/script'
 import { NextConfig } from 'next'
-import getConfig from 'next/config'
 import getCombinations from './lib/combinations'
 
 type NextPlausibleProxyOptions = {
@@ -9,9 +8,18 @@ type NextPlausibleProxyOptions = {
   scriptName?: string
   customDomain?: string
 }
+type RequiredKeys<T> = {
+  [K in keyof Required<T>]-?: T[K] | undefined
+}
 type NextPlausiblePublicProxyOptions = NextPlausibleProxyOptions & {
-  trailingSlash: boolean
+  trailingSlash?: boolean
   basePath?: string
+}
+
+type NextPlausibleEnv = { next_plausible_proxy: 'true' } & {
+  [K in keyof Required<NextPlausiblePublicProxyOptions> as `next_plausible_${K}`]:
+    | string
+    | undefined
 }
 
 const allModifiers = [
@@ -50,6 +58,32 @@ const getApiEndpoint = (options: NextPlausiblePublicProxyOptions) =>
     options.trailingSlash ? '/' : ''
   }`
 
+const getNextPlausibleProxyEnv = (
+  options: NextPlausiblePublicProxyOptions
+): NextPlausibleEnv => ({
+  next_plausible_proxy: 'true',
+  next_plausible_trailingSlash: options.trailingSlash ? 'true' : undefined,
+  next_plausible_basePath: options.basePath,
+  next_plausible_customDomain: options.customDomain,
+  next_plausible_scriptName: options.scriptName,
+  next_plausible_subdirectory: options.subdirectory,
+})
+
+const getNextPlausibleProxyOptions = ():
+  | RequiredKeys<NextPlausiblePublicProxyOptions>
+  | undefined => {
+  if (process.env.next_plausible_proxy) {
+    return {
+      trailingSlash: process.env.next_plausible_trailingSlash === 'true',
+      basePath: process.env.next_plausible_basePath,
+      customDomain: process.env.next_plausible_customDomain,
+      scriptName: process.env.next_plausible_scriptName,
+      subdirectory: process.env.next_plausible_subdirectory,
+    }
+  }
+  return undefined
+}
+
 export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
   return (nextConfig: NextConfig): NextConfig => {
     const nextPlausiblePublicProxyOptions: NextPlausiblePublicProxyOptions = {
@@ -59,9 +93,12 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
     }
     return {
       ...nextConfig,
-      publicRuntimeConfig: {
-        ...nextConfig.publicRuntimeConfig,
-        nextPlausiblePublicProxyOptions,
+      env: {
+        ...nextConfig.env,
+        ...(getNextPlausibleProxyEnv(nextPlausiblePublicProxyOptions) as Record<
+          string,
+          string
+        >),
       },
       rewrites: async () => {
         const domain = getDomain(options)
@@ -170,8 +207,7 @@ export default function PlausibleProvider(props: {
         process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'),
   } = props
   const domain = getDomain(props)
-  const proxyOptions: NextPlausiblePublicProxyOptions | undefined =
-    getConfig()?.publicRuntimeConfig?.nextPlausiblePublicProxyOptions
+  const proxyOptions = getNextPlausibleProxyOptions()
 
   return (
     <>
