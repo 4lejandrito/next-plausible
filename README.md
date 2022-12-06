@@ -41,6 +41,24 @@ export default Home() {
 }
 ```
 
+If are using [the app directory](https://beta.nextjs.org/docs/routing/fundamentals#the-app-directory) include `PlausibleProvider` inside the root layout:
+
+```jsx
+// app/layout.js
+import PlausibleProvider from 'next-plausible'
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <head>
+        <PlausibleProvider domain="example.com" />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
 #### `PlausibleProvider` Props
 
 | Name                 | Description                                                                                                                                                                         |
