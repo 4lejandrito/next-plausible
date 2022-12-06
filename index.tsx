@@ -123,7 +123,7 @@ export default function PlausibleProvider(props: {
    */
   customDomain?: string
 
-  children: ReactNode | ReactNode[]
+  children?: ReactNode | ReactNode[]
   /**
    * Set this to true if you want to disable automatic pageview events as described here.
    */
