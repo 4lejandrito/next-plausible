@@ -1,5 +1,5 @@
 import testPlausibleProvider from '../fixtures'
-import { describe, it, expect } from '@jest/globals'
+import { describe, it, expect, beforeAll } from '@jest/globals'
 
 testPlausibleProvider((withPage) => {
   describe(
@@ -170,6 +170,33 @@ testPlausibleProvider((withPage) => {
             '/api/custom/event'
           )
         })
+      })
+    })
+  )
+
+  describe(
+    'when enabling tagged events like <PlausibleProvider domain="example.com" taggedEvents ...>',
+    withPage('/taggedEvents', (scriptAttr, getPage) => {
+      describe('the script', () => {
+        it('points to https://plausible.io/js/plausible.local.tagged-events.js', () =>
+          expect(scriptAttr('src')).resolves.toBe(
+            'https://plausible.io/js/plausible.local.tagged-events.js'
+          ))
+      })
+      describe('when clicking a tagged element', () => {
+        beforeAll(async () => {
+          const button = await getPage().$('button')
+          await button?.click()
+        })
+        it('sends the custom event', () =>
+          getPage().waitForRequest(async (request) => {
+            const body = JSON.parse(request.postData() ?? '')
+            return (
+              request.url().includes('/api/event') &&
+              body.n === 'CustomEventName' &&
+              body.p.prop === 'value'
+            )
+          }))
       })
     })
   )

@@ -28,6 +28,7 @@ const allModifiers = [
   'manual',
   'outbound-links',
   'file-downloads',
+  'tagged-events',
 ] as const
 type ScriptModifier = typeof allModifiers[number]
 
@@ -178,6 +179,10 @@ export default function PlausibleProvider(props: {
    */
   trackFileDownloads?: boolean
   /**
+   * Set this to true if you want to enable custom event tracking in HTML elements as described https://plausible.io/docs/custom-event-goals
+   */
+  taggedEvents?: boolean
+  /**
    * Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.
    */
   exclude?: string
@@ -231,7 +236,8 @@ export default function PlausibleProvider(props: {
               props.manualPageviews ? 'manual' : null,
               props.trackOutboundLinks ? 'outbound-links' : null,
               props.exclude ? 'exclusions' : null,
-              props.trackFileDownloads ? 'file-downloads' : null
+              props.trackFileDownloads ? 'file-downloads' : null,
+              props.taggedEvents ? 'tagged-events' : null
             )
           }
           integrity={props.integrity}
