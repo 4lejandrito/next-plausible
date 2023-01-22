@@ -48,8 +48,8 @@ const getScriptPath = (
 
 const plausibleDomain = 'https://plausible.io'
 
-const getRemoteScriptName = (domain: string, selfHosted?: boolean) =>
-  selfHosted || domain === plausibleDomain ? 'plausible' : 'index'
+const getRemoteScriptName = (selfHosted?: boolean) =>
+  selfHosted ? 'plausible' : 'script'
 
 const getDomain = (options: { customDomain?: string }) =>
   options.customDomain ?? plausibleDomain
@@ -107,10 +107,7 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           domain +
           getScriptPath(
             {
-              scriptName: getRemoteScriptName(
-                domain,
-                domain !== plausibleDomain
-              ),
+              scriptName: getRemoteScriptName(domain !== plausibleDomain),
             },
             ...modifiers
           )
@@ -230,7 +227,7 @@ export default function PlausibleProvider(props: {
                 ...proxyOptions,
                 scriptName: proxyOptions
                   ? proxyOptions.scriptName
-                  : getRemoteScriptName(domain, props.selfHosted),
+                  : getRemoteScriptName(props.selfHosted),
               },
               props.trackLocalhost ? 'local' : null,
               props.manualPageviews ? 'manual' : null,

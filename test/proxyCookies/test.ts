@@ -7,7 +7,7 @@ testPlausibleProvider((withPage) => {
   let scope: nock.Scope
   beforeAll(async () => {
     scope = nock('https://plausible.io')
-      .get('/js/plausible.local.js')
+      .get('/js/script.local.js')
       .reply(
         200,
         (await axios.get('https://plausible.io/js/script.local.js')).data

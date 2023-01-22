@@ -9,9 +9,9 @@ testPlausibleProvider((withPage) => {
         it('is deferred', () =>
           expect(scriptAttr('defer')).resolves.toBe('true'))
 
-        it('points to https://plausible.io/js/plausible.js', () =>
+        it('points to https://plausible.io/js/script.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://plausible.io/js/plausible.js'
+            'https://plausible.io/js/script.js'
           ))
       })
     })
@@ -21,9 +21,9 @@ testPlausibleProvider((withPage) => {
     'when passing a custom domain like <PlausibleProvider domain="example.com" customDomain="https://custom.example.com">',
     withPage('/customDomain', (scriptAttr) => {
       describe('the script', () => {
-        it('points to https://custom.example.com/js/index.js', () =>
+        it('points to https://custom.example.com/js/script.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://custom.example.com/js/index.js'
+            'https://custom.example.com/js/script.js'
           ))
       })
     })
@@ -36,9 +36,9 @@ testPlausibleProvider((withPage) => {
         it('has the data-exclude attribute', () =>
           expect(scriptAttr('data-exclude')).resolves.toBe('page'))
 
-        it('points to https://plausible.io/js/plausible.exclusions.js', () =>
+        it('points to https://plausible.io/js/script.exclusions.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://plausible.io/js/plausible.exclusions.js'
+            'https://plausible.io/js/script.exclusions.js'
           ))
       })
     })
@@ -51,9 +51,9 @@ testPlausibleProvider((withPage) => {
         it('has the data-exclude attribute', () =>
           expect(scriptAttr('data-exclude')).resolves.toBe('page'))
 
-        it('points to https://custom.example.com/js/index.exclusions.js', () =>
+        it('points to https://custom.example.com/js/script.exclusions.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://custom.example.com/js/index.exclusions.js'
+            'https://custom.example.com/js/script.exclusions.js'
           ))
       })
     })
@@ -63,9 +63,9 @@ testPlausibleProvider((withPage) => {
     'when tracking localhost events like <PlausibleProvider domain="example.com" trackLocalhost />',
     withPage('/trackLocalhost', (scriptAttr) => {
       describe('the script', () => {
-        it('points to https://plausible.io/js/plausible.local.js', () =>
+        it('points to https://plausible.io/js/script.local.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://plausible.io/js/plausible.local.js'
+            'https://plausible.io/js/script.local.js'
           ))
       })
     })
@@ -75,9 +75,9 @@ testPlausibleProvider((withPage) => {
     'when disabling automatic page events like <PlausibleProvider domain="example.com" manual />',
     withPage('/manual', (scriptAttr) => {
       describe('the script', () => {
-        it('points to https://plausible.io/js/plausible.manual.js', () =>
+        it('points to https://plausible.io/js/script.manual.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://plausible.io/js/plausible.manual.js'
+            'https://plausible.io/js/script.manual.js'
           ))
       })
     })
@@ -87,9 +87,9 @@ testPlausibleProvider((withPage) => {
     'when tracking outbound links like <PlausibleProvider domain="example.com" trackOutboundLinks />',
     withPage('/trackOutboundLinks', (scriptAttr) => {
       describe('the script', () => {
-        it('points to https://plausible.io/js/plausible.outbound-links.js', () =>
+        it('points to https://plausible.io/js/script.outbound-links.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://plausible.io/js/plausible.outbound-links.js'
+            'https://plausible.io/js/script.outbound-links.js'
           ))
       })
     })
@@ -103,9 +103,9 @@ testPlausibleProvider((withPage) => {
           expect(scriptAttr('data-exclude')).resolves.toBe('page')
         })
 
-        it('points to https://plausible.io/js/plausible.exclusions.outbound-links.js', () =>
+        it('points to https://plausible.io/js/script.exclusions.outbound-links.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://plausible.io/js/plausible.exclusions.outbound-links.js'
+            'https://plausible.io/js/script.exclusions.outbound-links.js'
           ))
       })
     })
@@ -115,9 +115,9 @@ testPlausibleProvider((withPage) => {
     'when tracking file downloads like <PlausibleProvider domain="example.com" trackFileDownloads />',
     withPage('/trackFileDownloads', (scriptAttr) => {
       describe('the script', () => {
-        it('points to https://plausible.io/js/plausible.file-downloads.js', () =>
+        it('points to https://plausible.io/js/script.file-downloads.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://plausible.io/js/plausible.file-downloads.js'
+            'https://plausible.io/js/script.file-downloads.js'
           ))
       })
     })
@@ -178,9 +178,9 @@ testPlausibleProvider((withPage) => {
     'when enabling tagged events like <PlausibleProvider domain="example.com" taggedEvents ...>',
     withPage('/taggedEvents', (scriptAttr, getPage) => {
       describe('the script', () => {
-        it('points to https://plausible.io/js/plausible.local.tagged-events.js', () =>
+        it('points to https://plausible.io/js/script.local.tagged-events.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
-            'https://plausible.io/js/plausible.local.tagged-events.js'
+            'https://plausible.io/js/script.local.tagged-events.js'
           ))
       })
       describe('when clicking a tagged element', () => {

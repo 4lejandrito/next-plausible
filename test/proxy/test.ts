@@ -113,7 +113,7 @@ testPlausibleProvider((withPage, url) => {
     ;[
       {
         source: '/js/script.js',
-        destination: 'https://plausible.io/js/plausible.js',
+        destination: 'https://plausible.io/js/script.js',
       },
       ...getCombinations([
         'exclusions',
@@ -122,9 +122,7 @@ testPlausibleProvider((withPage, url) => {
         'outbound-links',
       ]).map((modifiers) => ({
         source: `/js/script.${modifiers.join('.')}.js`,
-        destination: `https://plausible.io/js/plausible.${modifiers.join(
-          '.'
-        )}.js`,
+        destination: `https://plausible.io/js/script.${modifiers.join('.')}.js`,
       })),
     ].map(({ source, destination }) => {
       describe(source, () => {
