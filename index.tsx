@@ -139,8 +139,11 @@ export function withPlausibleProxy(options: NextPlausibleProxyOptions = {}) {
           return plausibleRewrites
         } else if (Array.isArray(rewrites)) {
           return rewrites.concat(plausibleRewrites)
-        } else {
+        } else if (rewrites.afterFiles) {
           rewrites.afterFiles = rewrites.afterFiles.concat(plausibleRewrites)
+          return rewrites
+        } else {
+          rewrites.afterFiles = plausibleRewrites
           return rewrites
         }
       },
