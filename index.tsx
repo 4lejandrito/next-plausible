@@ -29,6 +29,7 @@ const allModifiers = [
   'outbound-links',
   'file-downloads',
   'tagged-events',
+  'pageview-props',
 ] as const
 type ScriptModifier = typeof allModifiers[number]
 
@@ -167,6 +168,10 @@ export default function PlausibleProvider(props: {
    */
   manualPageviews?: boolean
   /**
+   * Set this to true if you want to enable custom properties for pageviews as described https://plausible.io/docs/custom-pageview-props.
+   */
+  pageviewProps?: boolean
+  /**
    * Set this to true if you want to enable localhost tracking as described https://plausible.io/docs/script-extensions.
    */
   trackLocalhost?: boolean
@@ -234,6 +239,7 @@ export default function PlausibleProvider(props: {
               },
               props.trackLocalhost ? 'local' : null,
               props.manualPageviews ? 'manual' : null,
+              props.pageviewProps ? 'pageview-props' : null,
               props.trackOutboundLinks ? 'outbound-links' : null,
               props.exclude ? 'exclusions' : null,
               props.trackFileDownloads ? 'file-downloads' : null,
