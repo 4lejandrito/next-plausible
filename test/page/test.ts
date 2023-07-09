@@ -1,5 +1,5 @@
 import testPlausibleProvider from '../fixtures'
-import { describe, it, expect, beforeAll } from '@jest/globals'
+import { describe, it, expect } from '@jest/globals'
 
 testPlausibleProvider((withPage) => {
   describe(
@@ -183,20 +183,16 @@ testPlausibleProvider((withPage) => {
             'https://plausible.io/js/script.local.tagged-events.js'
           ))
       })
-      describe('when clicking a tagged element', () => {
-        beforeAll(async () => {
-          const button = await getPage().$('button')
-          await button?.click()
-        })
-        it('sends the custom event', () =>
-          getPage().waitForRequest((request) => {
+      it('sends the custom event', async () => {
+        const button = await getPage().$('button')
+        button?.click()
+        await getPage().waitForRequest((request) => {
+          if (request.url().includes('/api/event')) {
             const body = JSON.parse(request.postData() ?? '')
-            return (
-              request.url().includes('/api/event') &&
-              body.n === 'CustomEventName' &&
-              body.p.prop === 'value'
-            )
-          }))
+            return body.n === 'CustomEventName' && body.p.prop === 'value'
+          }
+          return false
+        })
       })
     })
   )
@@ -210,21 +206,19 @@ testPlausibleProvider((withPage) => {
             'https://plausible.io/js/script.local.revenue.tagged-events.js'
           ))
       })
-      describe('when clicking a tagged element', () => {
-        beforeAll(async () => {
-          const button = await getPage().$('button')
-          await button?.click()
-        })
-        it('sends the purchase event', async () => {
-          const r = await getPage().waitForRequest((request) => {
+      it('sends the purchase event', async () => {
+        const button = await getPage().$('button')
+        button?.click()
+        await getPage().waitForRequest((request) => {
+          if (request.url().includes('/api/event')) {
             const body = JSON.parse(request.postData() ?? '')
             return (
-              request.url().includes('/api/event') &&
               body.n === 'Purchase' &&
               body.$.amount === '10.29' &&
               body.$.currency === 'EUR'
             )
-          })
+          }
+          return false
         })
       })
     })
