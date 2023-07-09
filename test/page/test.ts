@@ -200,4 +200,33 @@ testPlausibleProvider((withPage) => {
       })
     })
   )
+
+  describe(
+    'when tracking ecommerce revenue like <PlausibleProvider domain="example.com" revenue />',
+    withPage('/revenue', (scriptAttr, getPage) => {
+      describe('the script', () => {
+        it('points to https://plausible.io/js/script.local.revenue.tagged-events.js', () =>
+          expect(scriptAttr('src')).resolves.toBe(
+            'https://plausible.io/js/script.local.revenue.tagged-events.js'
+          ))
+      })
+      describe('when clicking a tagged element', () => {
+        beforeAll(async () => {
+          const button = await getPage().$('button')
+          await button?.click()
+        })
+        it('sends the purchase event', async () => {
+          const r = await getPage().waitForRequest((request) => {
+            const body = JSON.parse(request.postData() ?? '')
+            return (
+              request.url().includes('/api/event') &&
+              body.n === 'Purchase' &&
+              body.$.amount === '10.29' &&
+              body.$.currency === 'EUR'
+            )
+          })
+        })
+      })
+    })
+  )
 })

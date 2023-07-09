@@ -27,6 +27,7 @@ testPlausibleProvider((withPage, url) => {
         'local',
         'manual',
         'outbound-links',
+        'revenue',
       ]).map((modifiers) => ({
         source: `/test/js/script.${modifiers.join('.')}.js`,
         destination: `${url}/js/plausible.${modifiers.join('.')}.js`,

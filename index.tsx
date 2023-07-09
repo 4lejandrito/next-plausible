@@ -30,6 +30,7 @@ const allModifiers = [
   'file-downloads',
   'tagged-events',
   'pageview-props',
+  'revenue',
 ] as const
 type ScriptModifier = typeof allModifiers[number]
 
@@ -172,6 +173,10 @@ export default function PlausibleProvider(props: {
    */
   pageviewProps?: boolean
   /**
+   *  Set this to true if you want to track ecommerce revenue as described https://plausible.io/docs/ecommerce-revenue-tracking .
+   */
+  revenue?: boolean
+  /**
    * Set this to true if you want to enable localhost tracking as described https://plausible.io/docs/script-extensions.
    */
   trackLocalhost?: boolean
@@ -242,6 +247,7 @@ export default function PlausibleProvider(props: {
               props.pageviewProps ? 'pageview-props' : null,
               props.trackOutboundLinks ? 'outbound-links' : null,
               props.exclude ? 'exclusions' : null,
+              props.revenue ? 'revenue' : null,
               props.trackFileDownloads ? 'file-downloads' : null,
               props.taggedEvents ? 'tagged-events' : null
             )
@@ -268,7 +274,12 @@ export default function PlausibleProvider(props: {
 type Props = Record<string, unknown> | never
 type EventOptions<P extends Props> = {
   props: P
-  // https://plausible.io/docs/custom-locations
+  // https://plausible.io/docs/ecommerce-revenue-tracking
+  revenue?: {
+    currency: string
+    amount: number
+  }
+  // https://plausible.io/docs/custom-locations,
   u?: string
   callback?: VoidFunction
 }
