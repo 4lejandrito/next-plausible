@@ -71,6 +71,7 @@ export default function RootLayout({ children }) {
 | `trackLocalhost`     | Set this to `true` if you want to enable localhost tracking as described [here](https://plausible.io/docs/script-extensions).                                                       |
 | `manualPageviews`    | Set this to `true` if you want to disable automatic pageview events as described [here](https://plausible.io/docs/script-extensions#plausiblemanualjs).                             |
 | `pageviewProps`      | Set this to `true` if you want to enable custom properties for pageviews as described [here](https://plausible.io/docs/custom-pageview-props).                                      |
+| `revenue`            | Set this to `true` if you want to enable [ecommerce revenue tracking](https://plausible.io/docs/ecommerce-revenue-tracking).                                                        |
 | `exclude`            | Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.                                                  |
 | `selfHosted`         | Set this to `true` if you are self hosting your Plausible instance. Otherwise you will get a 404 when requesting the script.                                                        |
 | `enabled`            | Use this to explicitly decide whether or not to render script. If not passed the script will be rendered in production environments.                                                |
