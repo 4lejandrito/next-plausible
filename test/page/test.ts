@@ -189,7 +189,7 @@ testPlausibleProvider((withPage) => {
           await button?.click()
         })
         it('sends the custom event', () =>
-          getPage().waitForRequest(async (request) => {
+          getPage().waitForRequest((request) => {
             const body = JSON.parse(request.postData() ?? '')
             return (
               request.url().includes('/api/event') &&
