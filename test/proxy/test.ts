@@ -94,17 +94,18 @@ testPlausibleProvider((withPage, url) => {
 
   describe(
     'when tracking a 404 page',
-    withPage('/notFound', (_, getPage) => {
+    withPage('/notFound', (_, getPage, events) => {
       it('there are 2 events sent', async () => {
-        let plausibleEvents = 0
-        const page = getPage()
-        page.on('console', (message) => {
-          if (message.text().includes('Ignoring Event')) {
-            plausibleEvents += 1
-          }
-        })
-        await page.waitForNetworkIdle()
-        expect(plausibleEvents).toBe(2)
+        await getPage().waitForNetworkIdle()
+        expect(events).toEqual([
+          expect.objectContaining({
+            n: 'Page Not Found',
+            p: { page: '/notFound' },
+          }),
+          expect.objectContaining({
+            n: 'pageview',
+          }),
+        ])
       })
     })
   )

@@ -176,7 +176,7 @@ testPlausibleProvider((withPage) => {
 
   describe(
     'when enabling tagged events like <PlausibleProvider domain="example.com" taggedEvents ...>',
-    withPage('/taggedEvents', (scriptAttr, getPage) => {
+    withPage('/taggedEvents', (scriptAttr, getPage, events) => {
       describe('the script', () => {
         it('points to https://plausible.io/js/script.local.tagged-events.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
@@ -184,22 +184,27 @@ testPlausibleProvider((withPage) => {
           ))
       })
       it('sends the custom event', async () => {
-        const button = await getPage().$('button')
-        button?.click()
-        await getPage().waitForRequest((request) => {
-          if (request.url().includes('/api/event')) {
-            const body = JSON.parse(request.postData() ?? '')
-            return body.n === 'CustomEventName' && body.p.prop === 'value'
-          }
-          return false
-        })
+        await getPage().waitForFunction(
+          'window.plausible?.toString().includes("XMLHttpRequest")'
+        )
+        await getPage().click('button')
+        expect(events).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              n: 'CustomEventName',
+              p: {
+                prop: 'value',
+              },
+            }),
+          ])
+        )
       })
     })
   )
 
   describe(
     'when tracking ecommerce revenue like <PlausibleProvider domain="example.com" revenue />',
-    withPage('/revenue', (scriptAttr, getPage) => {
+    withPage('/revenue', (scriptAttr, getPage, events) => {
       describe('the script', () => {
         it('points to https://plausible.io/js/script.local.revenue.tagged-events.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
@@ -207,19 +212,21 @@ testPlausibleProvider((withPage) => {
           ))
       })
       it('sends the purchase event', async () => {
-        const button = await getPage().$('button')
-        button?.click()
-        await getPage().waitForRequest((request) => {
-          if (request.url().includes('/api/event')) {
-            const body = JSON.parse(request.postData() ?? '')
-            return (
-              body.n === 'Purchase' &&
-              body.$.amount === '10.29' &&
-              body.$.currency === 'EUR'
-            )
-          }
-          return false
-        })
+        await getPage().waitForFunction(
+          'window.plausible?.toString().includes("XMLHttpRequest")'
+        )
+        await getPage().click('button')
+        expect(events).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              n: 'Purchase',
+              $: {
+                amount: '10.29',
+                currency: 'EUR',
+              },
+            }),
+          ])
+        )
       })
     })
   )

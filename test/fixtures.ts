@@ -12,9 +12,14 @@ import callerPath from 'caller-path'
 const exec = util.promisify(cp.exec)
 
 type ScriptAttr = (name: string) => Promise<string | null>
+type PlausibleEvent = object
 type WithPage = (
   path: string,
-  fn: (scriptAttr: ScriptAttr, getPage: () => puppeteer.Page) => void,
+  fn: (
+    scriptAttr: ScriptAttr,
+    getPage: () => puppeteer.Page,
+    events: PlausibleEvent[]
+  ) => void,
   domain?: string
 ) => () => void
 
@@ -33,32 +38,46 @@ export const testNextPlausible = (
   baseUrl: string
 ) =>
   describe('PlausibleProvider', () => {
-    let browser: puppeteer.Browser, page: puppeteer.Page
+    let browser: puppeteer.Browser
 
-    const getScriptAttr =
-      (domain: string): ScriptAttr =>
-      (name) =>
-        page.$eval(
-          `script[data-domain="${domain}"]`,
-          (el, name) => el.getAttribute(name as string),
-          name
-        )
+    beforeAll(async () => {
+      browser = await puppeteer.launch()
+    })
+
+    afterAll(() => browser.close())
 
     const withPage: WithPage =
       (path, fn, domain = 'example.com') =>
       () => {
-        beforeAll(() => page.goto(`${baseUrl}${path}`))
-        fn(getScriptAttr(domain), () => page)
+        let page: puppeteer.Page
+        const events: PlausibleEvent[] = []
+
+        const getScriptAttr =
+          (domain: string): ScriptAttr =>
+          async (name) => {
+            const selector = `script[data-domain="${domain}"]`
+            await page.waitForSelector(selector)
+            return page.$eval(
+              selector,
+              (el, name) => el.getAttribute(name as string),
+              name
+            )
+          }
+
+        beforeAll(async () => {
+          page = await browser.newPage()
+          page.on('request', (request) => {
+            if (request.url().endsWith('/api/event')) {
+              events.push(JSON.parse(request.postData() ?? '{}'))
+            }
+          })
+          await page.goto(`${baseUrl}${path}`)
+        })
+
+        fn(getScriptAttr(domain), () => page, events)
       }
 
-    beforeAll(async () => {
-      browser = await puppeteer.launch()
-      page = await browser.newPage()
-    })
-
     fn(withPage, baseUrl)
-
-    afterAll(() => browser.close())
   })
 
 export default (fn: (withPage: WithPage, url: string) => void) => {

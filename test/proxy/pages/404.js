@@ -15,7 +15,7 @@ function Page() {
 
 export default function Custom404() {
   return (
-    <PlausibleProvider domain="example.com">
+    <PlausibleProvider domain="example.com" trackLocalhost enabled>
       <Page />
     </PlausibleProvider>
   )
