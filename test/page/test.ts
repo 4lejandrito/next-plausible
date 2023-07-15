@@ -230,4 +230,27 @@ testPlausibleProvider((withPage) => {
       })
     })
   )
+
+  describe(
+    'when tracking custom props for pageviews like <PlausibleProvider domain="example.com" pageViewProps />',
+    withPage('/pageViewProps', (scriptAttr, getPage, events) => {
+      describe('the script', () => {
+        it('points to https://plausible.io/js/script.local.pageview-props.js', () =>
+          expect(scriptAttr('src')).resolves.toBe(
+            'https://plausible.io/js/script.local.pageview-props.js'
+          ))
+      })
+      it('sends the pageview event with the custom prop', async () => {
+        await getPage().waitForNetworkIdle()
+        expect(events).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              n: 'pageview',
+              p: { customprop: 'value' },
+            }),
+          ])
+        )
+      })
+    })
+  )
 })
