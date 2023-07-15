@@ -25,7 +25,7 @@
     "test": "jest",
     "deploy:demo": "cd demo && npm i && npm run deploy",
     "start": "rollup -c -w",
-    "build": "rollup -c",
+    "build": "tsc --project ./tsconfig.json && rollup -c",
     "prepublishOnly": "NODE_ENV=production npm run build",
     "prepare": "husky install"
   },
@@ -35,8 +35,9 @@
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
+    "@types/node": "^20.4.2",
     "@types/react": "^17.0.43",
+    "@types/react-dom": "^18.2.7",
     "axios": "^0.26.1",
     "caller-path": "^4.0.0",
     "husky": "^7.0.4",
