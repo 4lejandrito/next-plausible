@@ -2,7 +2,7 @@ import typescript from 'rollup-plugin-typescript2'
 import pkg from './package.json'
 
 export default {
-  input: 'index.tsx',
+  input: 'index.ts',
   output: [
     {
       file: pkg.module,

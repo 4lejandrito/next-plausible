@@ -13,6 +13,6 @@
     "sourceMap": true,
     "allowJs": true
   },
-  "files": ["index.tsx"],
+  "files": ["index.ts"],
   "exclude": ["node_modules", "dist", "@types"]
 }
