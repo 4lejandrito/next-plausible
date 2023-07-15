@@ -169,9 +169,9 @@ export default function PlausibleProvider(props: {
    */
   manualPageviews?: boolean
   /**
-   * Set this to true if you want to enable custom properties for pageviews as described https://plausible.io/docs/custom-pageview-props.
+   * Set the custom pageview props (without the event- prefix) if you want to enable if you want to enable custom properties for pageviews as described https://plausible.io/docs/custom-pageview-props.
    */
-  pageviewProps?: boolean
+  pageviewProps?: boolean | { [key: string]: string }
   /**
    *  Set this to true if you want to track ecommerce revenue as described https://plausible.io/docs/ecommerce-revenue-tracking .
    */
@@ -254,6 +254,14 @@ export default function PlausibleProvider(props: {
           }
           integrity={props.integrity}
           crossOrigin={props.integrity ? 'anonymous' : undefined}
+          {...(typeof props.pageviewProps === 'object'
+            ? Object.fromEntries(
+                Object.entries(props.pageviewProps).map(([k, v]) => [
+                  `event-${k}`,
+                  v,
+                ])
+              )
+            : undefined)}
           {...props.scriptProps}
         />
       )}

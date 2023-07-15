@@ -61,22 +61,22 @@ export default function RootLayout({ children }) {
 
 #### `PlausibleProvider` Props
 
-| Name                 | Description                                                                                                                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `domain`             | The domain of the site you want to monitor.                                                                                                                                         |
-| `customDomain`       | Set this if you use a custom domain to serve the analytics script. Defaults to https://plausible.io. See https://plausible.io/docs/custom-domain for more details.                  |
-| `trackOutboundLinks` | Set this to `true` if you want to enable [outbound link click tracking](https://plausible.io/docs/outbound-link-click-tracking#see-all-the-outbound-link-clicks-in-your-dashboard). |
-| `trackFileDownloads` | Set this to `true` if you want to enable [file download tracking](https://plausible.io/docs/file-downloads-tracking).                                                               |
-| `taggedEvents`       | Set this to `true` if you want to enable [custom event tracking in HTML elements](https://plausible.io/docs/custom-event-goals).                                                    |
-| `trackLocalhost`     | Set this to `true` if you want to enable [localhost tracking](https://plausible.io/docs/script-extensions).                                                                         |
-| `manualPageviews`    | Set this to `true` if you want to disable [automatic pageview events](https://plausible.io/docs/script-extensions#plausiblemanualjs).                                               |
-| `pageviewProps`      | Set this to `true` if you want to enable [custom properties for pageviews](https://plausible.io/docs/custom-pageview-props).                                                        |
-| `revenue`            | Set this to `true` if you want to enable [ecommerce revenue tracking](https://plausible.io/docs/ecommerce-revenue-tracking).                                                        |
-| `exclude`            | Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.                                                  |
-| `selfHosted`         | Set this to `true` if you are self hosting your Plausible instance. Otherwise you will get a 404 when requesting the script.                                                        |
-| `enabled`            | Use this to explicitly decide whether or not to render script. If not passed the script will be rendered in production environments.                                                |
-| `integrity`          | Optionally define the [subresource integrity](https://infosec.mozilla.org/guidelines/web_security#subresource-integrity) attribute for extra security.                              |
-| `scriptProps`        | Optionally override any of the props passed to the script element. See [example](test/page/pages/scriptProps.js).                                                                   |
+| Name                 | Description                                                                                                                                                                                              |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `domain`             | The domain of the site you want to monitor.                                                                                                                                                              |
+| `customDomain`       | Set this if you use a custom domain to serve the analytics script. Defaults to https://plausible.io. See https://plausible.io/docs/custom-domain for more details.                                       |
+| `trackOutboundLinks` | Set this to `true` if you want to enable [outbound link click tracking](https://plausible.io/docs/outbound-link-click-tracking#see-all-the-outbound-link-clicks-in-your-dashboard).                      |
+| `trackFileDownloads` | Set this to `true` if you want to enable [file download tracking](https://plausible.io/docs/file-downloads-tracking).                                                                                    |
+| `taggedEvents`       | Set this to `true` if you want to enable [custom event tracking in HTML elements](https://plausible.io/docs/custom-event-goals).                                                                         |
+| `trackLocalhost`     | Set this to `true` if you want to enable [localhost tracking](https://plausible.io/docs/script-extensions).                                                                                              |
+| `manualPageviews`    | Set this to `true` if you want to disable [automatic pageview events](https://plausible.io/docs/script-extensions#plausiblemanualjs).                                                                    |
+| `pageviewProps`      | Set the [custom properties for pageviews](https://plausible.io/docs/custom-pageview-props). The `event-` prefix will be added automatically. See [an example](test/page/pages/pageViewPropsAsObject.js). |
+| `revenue`            | Set this to `true` if you want to enable [ecommerce revenue tracking](https://plausible.io/docs/ecommerce-revenue-tracking).                                                                             |
+| `exclude`            | Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.                                                                       |
+| `selfHosted`         | Set this to `true` if you are self hosting your Plausible instance. Otherwise you will get a 404 when requesting the script.                                                                             |
+| `enabled`            | Use this to explicitly decide whether or not to render script. If not passed the script will be rendered in production environments.                                                                     |
+| `integrity`          | Optionally define the [subresource integrity](https://infosec.mozilla.org/guidelines/web_security#subresource-integrity) attribute for extra security.                                                   |
+| `scriptProps`        | Optionally override any of the props passed to the script element. See [example](test/page/pages/scriptProps.js).                                                                                        |
 
 ### Proxy the Analytics Script
 

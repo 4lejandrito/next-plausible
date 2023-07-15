@@ -253,4 +253,21 @@ testPlausibleProvider((withPage) => {
       })
     })
   )
+
+  describe(
+    'when tracking custom props for pageviews like <PlausibleProvider domain="example.com" pageViewProps={{customprop: "value"}} />',
+    withPage('/pageViewPropsAsObject', (_, getPage, events) => {
+      it('sends the pageview event with the custom prop', async () => {
+        await getPage().waitForNetworkIdle()
+        expect(events).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              n: 'pageview',
+              p: { customprop: 'value' },
+            }),
+          ])
+        )
+      })
+    })
+  )
 })
