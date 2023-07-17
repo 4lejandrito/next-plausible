@@ -24,7 +24,7 @@ export default function PlausibleProvider(props: {
 
   children?: ReactNode | ReactNode[]
   /**
-   * Set this to true if you want to disable automatic pageview events as described here.
+   * Set this to true if you want to disable automatic pageview events as described in https://plausible.io/docs/script-extensions#scriptmanualjs.
    */
   manualPageviews?: boolean
   /**
@@ -32,11 +32,11 @@ export default function PlausibleProvider(props: {
    */
   pageviewProps?: boolean | { [key: string]: string }
   /**
-   *  Set this to true if you want to track ecommerce revenue as described https://plausible.io/docs/ecommerce-revenue-tracking .
+   *  Set this to true if you want to track ecommerce revenue as described in https://plausible.io/docs/ecommerce-revenue-tracking .
    */
   revenue?: boolean
   /**
-   * Set this to true if you want to enable localhost tracking as described https://plausible.io/docs/script-extensions.
+   * Set this to true if you want to enable localhost tracking as described in https://plausible.io/docs/script-extensions.
    */
   trackLocalhost?: boolean
   /**
@@ -44,11 +44,11 @@ export default function PlausibleProvider(props: {
    */
   trackOutboundLinks?: boolean
   /**
-   * Set this to true if you want to enable file download tracking as described https://plausible.io/docs/file-downloads-tracking
+   * Set this to true if you want to enable file download tracking as described in https://plausible.io/docs/file-downloads-tracking
    */
   trackFileDownloads?: boolean
   /**
-   * Set this to true if you want to enable custom event tracking in HTML elements as described https://plausible.io/docs/custom-event-goals
+   * Set this to true if you want to enable custom event tracking in HTML elements as described in https://plausible.io/docs/custom-event-goals
    */
   taggedEvents?: boolean
   /**
