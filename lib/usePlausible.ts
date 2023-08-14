@@ -21,7 +21,7 @@ type Events = { [K: string]: Props }
 export default function usePlausible<E extends Events = any>() {
   return useCallback(function <N extends keyof E>(
     eventName: N,
-    ...rest: EventOptionsTuple<E[N]>
+    ...rest: E[N] extends never ? [] : EventOptionsTuple<E[N]>
   ) {
     return (window as any).plausible?.(eventName, rest[0])
   },
