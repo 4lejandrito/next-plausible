@@ -21,7 +21,7 @@ describe('withPlausibleProxy', () => {
   })
   it('rewrites the script and the event endpoint to plausible', async () => {
     const rewrites = await withPlausibleProxy({})({}).rewrites?.()
-    expect(rewrites).toHaveLength(257)
+    expect(rewrites).toHaveLength(513)
     expect(rewrites).toEqual(
       expect.arrayContaining([
         {
