@@ -18,6 +18,7 @@ export const allModifiers = [
   'tagged-events',
   'pageview-props',
   'revenue',
+  'hash',
 ] as const
 
 export type ScriptModifier = typeof allModifiers[number]

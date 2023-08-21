@@ -36,6 +36,10 @@ export default function PlausibleProvider(props: {
    */
   revenue?: boolean
   /**
+   *  Set this to true if you want to use hash-based routing as described in https://plausible.io/docs/hash-based-routing.
+   */
+  hash?: boolean
+  /**
    * Set this to true if you want to enable localhost tracking as described in https://plausible.io/docs/script-extensions.
    */
   trackLocalhost?: boolean
