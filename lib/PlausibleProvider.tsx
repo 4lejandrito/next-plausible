@@ -121,7 +121,8 @@ export default function PlausibleProvider(props: {
               props.exclude ? 'exclusions' : null,
               props.revenue ? 'revenue' : null,
               props.trackFileDownloads ? 'file-downloads' : null,
-              props.taggedEvents ? 'tagged-events' : null
+              props.taggedEvents ? 'tagged-events' : null,
+              props.hash ? 'hash' : null
             )
           }
           integrity={props.integrity}
