@@ -1,24 +1,30 @@
 import testPlausibleProvider from '../fixtures'
-import nock from 'nock'
+import http from 'http'
 import axios from 'axios'
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals'
 
 testPlausibleProvider((withPage) => {
-  let scope: nock.Scope
-  beforeAll(async () => {
-    scope = nock('https://plausible.io')
-      .get('/js/script.local.js')
-      .reply(
-        200,
-        (await axios.get('https://plausible.io/js/script.local.js')).data
-      )
-      .post('/api/event')
-      .matchHeader('cookie', '')
-      .reply()
+  let server: http.Server
+  let success = false
+  beforeAll((done) => {
+    server = http.createServer(async (req, res) => {
+      if (req.url === '/js/script.local.js' && !req.headers.cookie) {
+        success = true
+        const scriptResponse = await axios.get(
+          'https://plausible.io/js/script.local.js'
+        )
+        res.writeHead(200, scriptResponse.headers)
+        res.end(scriptResponse.data)
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/plain' })
+        res.end('okay')
+      }
+    })
+    server.listen(8080, done)
   })
   afterAll(async () => {
-    scope.done()
-    nock.restore()
+    expect(success).toBe(true)
+    server.close()
   })
   describe(
     'when used like <PlausibleProvider domain="example.com">',
@@ -37,4 +43,4 @@ testPlausibleProvider((withPage) => {
       })
     })
   )
-})
+}, 'http://localhost:8080')

@@ -1,13 +1,11 @@
-import { createServer, Server } from 'http'
-import { NextServer } from 'next/dist/server/next'
-import next from 'next'
 import puppeteer from 'puppeteer'
 import path from 'path'
 import util from 'util'
-import cp from 'child_process'
-import { existsSync, readdirSync } from 'fs'
+import cp, { ChildProcess, spawn } from 'child_process'
+import { readdirSync } from 'fs'
 import { describe, beforeAll, afterAll } from '@jest/globals'
 import callerPath from 'caller-path'
+import waitPort from 'wait-port'
 
 const exec = util.promisify(cp.exec)
 
@@ -80,33 +78,29 @@ export const testNextPlausible = (
     fn(withPage, baseUrl)
   })
 
-export default (fn: (withPage: WithPage, url: string) => void) => {
+export default (
+  fn: (withPage: WithPage, url: string) => void,
+  testDomain?: string
+) => {
   const dir = path.resolve(callerPath() ?? '', '..')
   const port = getPort(dir)
-  let app: NextServer
-  let server: Server
+  let childProcess: ChildProcess
   beforeAll(async () => {
-    process.env.PORT = `${port}`
-    await exec(`next build`, { env: process.env, cwd: dir })
-    const configPath = path.join(dir, 'next.config.js')
-    app = next({
-      dir,
-      conf: existsSync(configPath) ? require(configPath) : undefined,
-      port,
+    const env = {
+      ...process.env,
+      NEXT_PLAUSIBLE_TEST_DOMAIN: testDomain,
+      PORT: `${port}`,
+    }
+    await exec(`next build`, { env, cwd: dir })
+    childProcess = spawn('next', ['start'], {
+      env,
+      cwd: dir,
     })
-    const handle = app.getRequestHandler()
-    await app.prepare()
-    server = createServer((req, res) => handle(req, res))
-    await new Promise<void>((resolve) => {
-      server.listen(port, resolve)
-    })
+    await waitPort({ port, output: 'silent' })
   })
 
   afterAll(async () => {
-    await app.close()
-    await new Promise<void>((resolve, reject) => {
-      server.close((err) => (err ? reject(err) : resolve()))
-    })
+    childProcess.kill()
   })
 
   testNextPlausible(fn, `http://localhost:${port}`)

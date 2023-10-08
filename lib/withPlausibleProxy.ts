@@ -45,7 +45,7 @@ export default function withPlausibleProxy(
       rewrites: async () => {
         const domain = getDomain(options)
         const getRemoteScript = (...modifiers: (ScriptModifier | null)[]) =>
-          domain +
+          (process.env.NEXT_PLAUSIBLE_TEST_DOMAIN ?? domain) +
           getScriptPath(
             {
               scriptName: getRemoteScriptName(domain !== plausibleDomain),
