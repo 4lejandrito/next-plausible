@@ -1,3 +1,3 @@
 const { withPlausibleProxy } = require('../../dist')
 
-module.exports = withPlausibleProxy()({ experimental: { appDir: true } })
+module.exports = withPlausibleProxy()({})

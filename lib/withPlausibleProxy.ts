@@ -40,7 +40,11 @@ export default function withPlausibleProxy(
       ...nextConfig,
       env: {
         ...nextConfig.env,
-        ...(nextPlausibleEnv as Record<string, string>),
+        ...(Object.fromEntries(
+          Object.entries(nextPlausibleEnv).filter(
+            ([_, value]) => value !== undefined
+          )
+        ) as Record<string, string>),
       },
       rewrites: async () => {
         const domain = getDomain(options)
