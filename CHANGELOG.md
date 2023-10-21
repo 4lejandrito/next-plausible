@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.11.2](https://github.com/4lejandrito/next-plausible/tree/v3.11.2) (2023-10-17)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.11.1...v3.11.2)
+
+**Closed issues:**
+
+- upgrading nextjs to 13.5.5 results in warnings on `next build` [\#104](https://github.com/4lejandrito/next-plausible/issues/104)
+
 ## [v3.11.1](https://github.com/4lejandrito/next-plausible/tree/v3.11.1) (2023-08-21)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.11.0...v3.11.1)
