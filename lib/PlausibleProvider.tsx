@@ -64,7 +64,7 @@ export default function PlausibleProvider(props: {
    */
   selfHosted?: boolean
   /**
-   * Use this to explicitly decide whether or not to render script. If not passed the script will be rendered in production environments.
+   * Use this to explicitly decide whether or not to render script. If not passed the script will be rendered in production environments (checking NODE_ENV and VERCEL_ENV).
    */
   enabled?: boolean
   /**
