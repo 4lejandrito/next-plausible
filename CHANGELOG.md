@@ -1,5 +1,14 @@
 # Changelog
 
+## [v3.11.3](https://github.com/4lejandrito/next-plausible/tree/v3.11.3) (2023-10-27)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.11.2...v3.11.3)
+
+**Merged pull requests:**
+
+- Support nextjs 14 as peer dependency [\#106](https://github.com/4lejandrito/next-plausible/pull/106) ([ChristoRibeiro](https://github.com/ChristoRibeiro))
+- docs: explain when it has to be explicitly enabled in README [\#105](https://github.com/4lejandrito/next-plausible/pull/105) ([boredland](https://github.com/boredland))
+
 ## [v3.11.2](https://github.com/4lejandrito/next-plausible/tree/v3.11.2) (2023-10-17)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.11.1...v3.11.2)
