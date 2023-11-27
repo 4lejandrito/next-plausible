@@ -171,6 +171,13 @@ testPlausibleProvider((withPage) => {
           )
         })
       })
+      describe('the init script', () => {
+        it('contains the nonce attribute', async () => {
+          await expect(
+            scriptAttr('nonce', '#next-plausible-init')
+          ).resolves.toBe('test')
+        })
+      })
     })
   )
 
