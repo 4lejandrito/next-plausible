@@ -7,6 +7,7 @@ export default function Home() {
       scriptProps={{
         src: '/custom/js/script.js',
         'data-api': '/api/custom/event',
+        nonce: 'test',
       }}
     />
   )

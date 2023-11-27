@@ -9,7 +9,7 @@ import waitPort from 'wait-port'
 
 const exec = util.promisify(cp.exec)
 
-type ScriptAttr = (name: string) => Promise<string | null>
+type ScriptAttr = (name: string, selector?: string) => Promise<string | null>
 type PlausibleEvent = object
 type WithPage = (
   path: string,
@@ -52,8 +52,7 @@ export const testNextPlausible = (
 
         const getScriptAttr =
           (domain: string): ScriptAttr =>
-          async (name) => {
-            const selector = `script[data-domain="${domain}"]`
+          async (name, selector = `script[data-domain="${domain}"]`) => {
             await page.waitForSelector(selector)
             return page.$eval(
               selector,

@@ -144,6 +144,7 @@ export default function PlausibleProvider(props: {
           dangerouslySetInnerHTML={{
             __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`,
           }}
+          nonce={props.scriptProps?.nonce}
         />
       )}
       {props.children}
