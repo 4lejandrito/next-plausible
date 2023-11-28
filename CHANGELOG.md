@@ -1,5 +1,20 @@
 # Changelog
 
+## [v3.12.0](https://github.com/4lejandrito/next-plausible/tree/v3.12.0) (2023-11-27)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.11.3...v3.12.0)
+
+**Closed issues:**
+
+- PlausibleProvider not passing nonce to preload link and init script [\#110](https://github.com/4lejandrito/next-plausible/issues/110)
+- Plausible script not included on website [\#80](https://github.com/4lejandrito/next-plausible/issues/80)
+- Not catching any requests [\#76](https://github.com/4lejandrito/next-plausible/issues/76)
+- withPlausibleProxy wrapper not forwarding country [\#75](https://github.com/4lejandrito/next-plausible/issues/75)
+
+**Merged pull requests:**
+
+- Reusing nonce in the init script [\#111](https://github.com/4lejandrito/next-plausible/pull/111) ([4lejandrito](https://github.com/4lejandrito))
+
 ## [v3.11.3](https://github.com/4lejandrito/next-plausible/tree/v3.11.3) (2023-10-27)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.11.2...v3.11.3)
