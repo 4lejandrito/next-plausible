@@ -9,6 +9,9 @@
     "dev": "next dev",
     "deploy": "vercel --yes --prod -t $VERCEL_TOKEN && vercel --yes -t $VERCEL_TOKEN"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "@octokit/graphql": "^5.0.1",
     "@popperjs/core": "^2.11.6",
