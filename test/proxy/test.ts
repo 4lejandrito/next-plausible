@@ -44,10 +44,18 @@ testPlausibleProvider((withPage, url) => {
 
   describe(
     'when tracking localhost events like <PlausibleProvider domain="example.com" trackLocalhost />',
-    withPage('/trackLocalhost', (scriptAttr) => {
+    withPage('/trackLocalhost', (scriptAttr, getPage, events) => {
       describe('the script', () => {
         it('points to /js/script.local.js', () =>
           expect(scriptAttr('src')).resolves.toBe('/js/script.local.js'))
+      })
+      it('sends the pageview event', async () => {
+        await getPage().waitForNetworkIdle()
+        expect(events).toEqual([
+          expect.objectContaining({
+            n: 'pageview',
+          }),
+        ])
       })
     })
   )

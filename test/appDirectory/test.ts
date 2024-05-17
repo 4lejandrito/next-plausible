@@ -7,14 +7,22 @@ testPlausibleProvider((withPage, url) => {
   console.log = console.warn = () => {}
 
   describe(
-    'when used like <PlausibleProvider domain="example.com">',
-    withPage('/', (scriptAttr) => {
+    'when used like <PlausibleProvider domain="example.com" trackLocalhost>',
+    withPage('/', (scriptAttr, getPage, events) => {
       describe('the script', () => {
         it('is deferred', () =>
           expect(scriptAttr('defer')).resolves.toBe('true'))
 
-        it('points to /js/script.js', () =>
-          expect(scriptAttr('src')).resolves.toBe('/js/script.js'))
+        it('points to /js/script.local.js', () =>
+          expect(scriptAttr('src')).resolves.toBe('/js/script.local.js'))
+      })
+      it('sends the pageview event', async () => {
+        await getPage().waitForNetworkIdle()
+        expect(events).toEqual([
+          expect.objectContaining({
+            n: 'pageview',
+          }),
+        ])
       })
     })
   )
