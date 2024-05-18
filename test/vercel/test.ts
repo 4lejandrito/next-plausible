@@ -27,6 +27,26 @@ testPlausibleProvider((withPage) => {
 
 testPlausibleProvider((withPage) => {
   describe(
+    'when used in a production deployment on vercel with the app directory',
+    withPage(
+      '/app-directory-test',
+      (_, getPage, events) => {
+        it('sends the pageview event', async () => {
+          await getPage().waitForNetworkIdle()
+          expect(events).toEqual([
+            expect.objectContaining({
+              n: 'pageview',
+            }),
+          ])
+        })
+      },
+      'next-plausible.vercel.app'
+    )
+  )
+}, 'https://next-plausible.vercel.app')
+
+testPlausibleProvider((withPage) => {
+  describe(
     'when used in a preview deployment on vercel',
     withPage(
       '/',
