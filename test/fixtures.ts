@@ -68,6 +68,11 @@ export const testNextPlausible = (
               events.push(JSON.parse(request.postData() ?? '{}'))
             }
           })
+          await page.evaluateOnNewDocument(() => {
+            Object.defineProperty(navigator, 'webdriver', {
+              get: () => false,
+            })
+          })
           await page.goto(`${baseUrl}${path}`)
         })
 

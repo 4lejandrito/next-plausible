@@ -6,10 +6,18 @@ testPlausibleProvider((withPage) => {
     'when used in a production deployment on vercel',
     withPage(
       '/',
-      (scriptAttr) => {
+      (scriptAttr, getPage, events) => {
         describe('the script', () => {
           it('is rendered', () =>
             expect(scriptAttr('src')).resolves.toBeDefined())
+        })
+        it('sends the pageview event', async () => {
+          await getPage().waitForNetworkIdle()
+          expect(events).toEqual([
+            expect.objectContaining({
+              n: 'pageview',
+            }),
+          ])
         })
       },
       'next-plausible.vercel.app'
