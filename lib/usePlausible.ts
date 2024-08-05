@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 // https://docs.plausible.io/custom-event-goals#using-custom-props
 type Props = Record<string, unknown> | never
 type EventOptions<P extends Props> = {
-  props?: P
+  props: P
   // https://plausible.io/docs/ecommerce-revenue-tracking
   revenue?: {
     currency: string
@@ -13,7 +13,7 @@ type EventOptions<P extends Props> = {
   u?: string
   callback?: VoidFunction
 }
-type EventOptionsTuple<P extends Props> = P extends never
+type EventOptionsTuple<P extends Props> = [P] extends [never]
   ? [Omit<EventOptions<P>, 'props'>?]
   : [EventOptions<P>]
 type Events = { [K: string]: Props }
@@ -21,7 +21,7 @@ type Events = { [K: string]: Props }
 export default function usePlausible<E extends Events = any>() {
   return useCallback(function <N extends keyof E>(
     eventName: N,
-    ...rest: E[N] extends never ? [] : EventOptionsTuple<E[N]>
+    ...rest: EventOptionsTuple<E[N]>
   ) {
     return (window as any).plausible?.(eventName, rest[0])
   },
