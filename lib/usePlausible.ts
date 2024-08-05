@@ -13,15 +13,14 @@ type EventOptions<P extends Props> = {
   u?: string
   callback?: VoidFunction
 }
-type EventOptionsTuple<P extends Props> = [P] extends [never]
-  ? [Omit<EventOptions<P>, 'props'>?]
-  : [EventOptions<P>]
 type Events = { [K: string]: Props }
 
 export default function usePlausible<E extends Events = any>() {
   return useCallback(function <N extends keyof E>(
     eventName: N,
-    ...rest: EventOptionsTuple<E[N]>
+    ...rest: [E[N]] extends [never]
+      ? [Omit<EventOptions<never>, 'props'>?]
+      : [EventOptions<E[N]>]
   ) {
     return (window as any).plausible?.(eventName, rest[0])
   },
