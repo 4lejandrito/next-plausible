@@ -17,7 +17,12 @@ describe('usePlausible', () => {
 
     // happy cases -> correct function calls
     plausible('someEvent')
+    plausible('someEvent', { revenue: { currency: 'EUR', amount: 0 } })
     plausible('e', { props: { a: 'a', b: 0 } })
+    plausible('e', {
+      props: { a: 'a', b: 0 },
+      revenue: { currency: 'EUR', amount: 0 },
+    })
 
     // falsy function calls -> typescript will error here
 
@@ -31,5 +36,9 @@ describe('usePlausible', () => {
     plausible('e', { props: { a: 'a', b: 'b' } })
     // @ts-expect-error
     plausible('a', { props: { a: 'a', b: 0 } })
+    // @ts-expect-error
+    plausible('e', {
+      revenue: { currency: 'EUR', amount: 0 },
+    })
   })
 })
