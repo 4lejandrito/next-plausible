@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 // https://docs.plausible.io/custom-event-goals#using-custom-props
 type Props = Record<string, unknown> | never
 type EventOptions<P extends Props> = {
-  props: P
+  props?: P
   // https://plausible.io/docs/ecommerce-revenue-tracking
   revenue?: {
     currency: string
