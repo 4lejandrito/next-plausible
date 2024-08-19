@@ -6,7 +6,19 @@ import usePlausible from '../../lib/usePlausible'
 import { renderHook } from '@testing-library/react'
 
 describe('usePlausible', () => {
-  it('is type safe', () => {
+  it('allows any props if no type parameter is set', () => {
+    const {
+      result: { current: plausible },
+    } = renderHook(() => usePlausible())
+
+    plausible('someEvent', { revenue: { currency: 'EUR', amount: 0 } })
+    plausible('someEvent', { props: { a: 'a' } })
+
+    // @ts-expect-error
+    plausible('someEvent', { a: 'a' })
+  })
+
+  it('is type safe when using a type parameter', () => {
     type Events = {
       someEvent: never
       e: { a: string; b: number }
