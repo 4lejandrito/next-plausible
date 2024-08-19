@@ -27,7 +27,6 @@ describe('usePlausible', () => {
       result: { current: plausible },
     } = renderHook(() => usePlausible<Events>())
 
-    // happy cases -> correct function calls
     plausible('someEvent')
     plausible('someEvent', { revenue: { currency: 'EUR', amount: 0 } })
     plausible('e', { props: { a: 'a', b: 0 } })
@@ -35,8 +34,6 @@ describe('usePlausible', () => {
       props: { a: 'a', b: 0 },
       revenue: { currency: 'EUR', amount: 0 },
     })
-
-    // falsy function calls -> typescript will error here
 
     // @ts-expect-error
     plausible('e')
