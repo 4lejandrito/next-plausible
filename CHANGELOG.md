@@ -1,12 +1,36 @@
 # Changelog
 
+## [v3.12.2](https://github.com/4lejandrito/next-plausible/tree/v3.12.2) (2024-08-19)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.1...v3.12.2)
+
+**Closed issues:**
+
+- v3.12.1 throws type error and breaks existing `usePlausible` hook [\#128](https://github.com/4lejandrito/next-plausible/issues/128)
+
+## [v3.12.1](https://github.com/4lejandrito/next-plausible/tree/v3.12.1) (2024-08-05)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.0...v3.12.1)
+
+**Closed issues:**
+
+- Heads up: Plausible site verification tool [\#123](https://github.com/4lejandrito/next-plausible/issues/123)
+- Unique count with Next.js 14 and proxy [\#121](https://github.com/4lejandrito/next-plausible/issues/121)
+- Next 14.1.4 analytics not working anymore [\#120](https://github.com/4lejandrito/next-plausible/issues/120)
+- Refused to execute script from 'https://plausible.io/js/script.js' because its MIME type \('image/png'\) is not executable. [\#115](https://github.com/4lejandrito/next-plausible/issues/115)
+- POST request is not fired when clicking on links [\#114](https://github.com/4lejandrito/next-plausible/issues/114)
+- Changes as of Next.js 14.0.3 break the Plausible script [\#107](https://github.com/4lejandrito/next-plausible/issues/107)
+
+**Merged pull requests:**
+
+- Make `props` attribute in `EventOptions` optional [\#127](https://github.com/4lejandrito/next-plausible/pull/127) ([steven-tey](https://github.com/steven-tey))
+
 ## [v3.12.0](https://github.com/4lejandrito/next-plausible/tree/v3.12.0) (2023-11-27)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.11.3...v3.12.0)
 
 **Closed issues:**
 
-- PlausibleProvider not passing nonce to preload link and init script [\#110](https://github.com/4lejandrito/next-plausible/issues/110)
 - Plausible script not included on website [\#80](https://github.com/4lejandrito/next-plausible/issues/80)
 - Not catching any requests [\#76](https://github.com/4lejandrito/next-plausible/issues/76)
 - withPlausibleProxy wrapper not forwarding country [\#75](https://github.com/4lejandrito/next-plausible/issues/75)
