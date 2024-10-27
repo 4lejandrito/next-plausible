@@ -8,8 +8,7 @@ testPlausibleProvider((withPage, url) => {
     'when used like <PlausibleProvider domain="example.com">',
     withPage('/test', (scriptAttr) => {
       describe('the script', () => {
-        it('is deferred', () =>
-          expect(scriptAttr('defer')).resolves.toBe('true'))
+        it('is deferred', () => expect(scriptAttr('defer')).resolves.toBe(''))
 
         it('points to /test/js/script.js', () =>
           expect(scriptAttr('src')).resolves.toBe('/test/js/script.js'))

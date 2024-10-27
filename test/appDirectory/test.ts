@@ -10,8 +10,7 @@ testPlausibleProvider((withPage, url) => {
     'when used like <PlausibleProvider domain="example.com" trackLocalhost>',
     withPage('/', (scriptAttr, getPage, events) => {
       describe('the script', () => {
-        it('is deferred', () =>
-          expect(scriptAttr('defer')).resolves.toBe('true'))
+        it('is deferred', () => expect(scriptAttr('defer')).resolves.toBe(''))
 
         it('points to /js/script.local.js', () =>
           expect(scriptAttr('src')).resolves.toBe('/js/script.local.js'))

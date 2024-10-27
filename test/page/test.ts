@@ -6,8 +6,7 @@ testPlausibleProvider((withPage) => {
     'when used like <PlausibleProvider domain="example.com">',
     withPage('/', (scriptAttr) => {
       describe('the script', () => {
-        it('is deferred', () =>
-          expect(scriptAttr('defer')).resolves.toBe('true'))
+        it('is deferred', () => expect(scriptAttr('defer')).resolves.toBe(''))
 
         it('points to https://plausible.io/js/script.js', () =>
           expect(scriptAttr('src')).resolves.toBe(
