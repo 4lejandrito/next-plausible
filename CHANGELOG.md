@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.12.3](https://github.com/4lejandrito/next-plausible/tree/v3.12.3) (2024-11-01)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.2...v3.12.3)
+
 ## [v3.12.2](https://github.com/4lejandrito/next-plausible/tree/v3.12.2) (2024-08-19)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.1...v3.12.2)
