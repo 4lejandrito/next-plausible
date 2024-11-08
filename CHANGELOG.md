@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.12.4](https://github.com/4lejandrito/next-plausible/tree/v3.12.4) (2024-11-08)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.3...v3.12.4)
+
+**Closed issues:**
+
+- Support Next 15 [\#134](https://github.com/4lejandrito/next-plausible/issues/134)
+
 ## [v3.12.3](https://github.com/4lejandrito/next-plausible/tree/v3.12.3) (2024-11-01)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.2...v3.12.3)
