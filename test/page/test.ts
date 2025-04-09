@@ -191,7 +191,7 @@ testPlausibleProvider((withPage) => {
       })
       it('sends the custom event', async () => {
         await getPage().waitForFunction(
-          'window.plausible?.toString().includes("XMLHttpRequest")'
+          'window.plausible?.toString().includes("pageview")'
         )
         await getPage().click('button')
         expect(events).toEqual(
@@ -219,7 +219,7 @@ testPlausibleProvider((withPage) => {
       })
       it('sends the purchase event', async () => {
         await getPage().waitForFunction(
-          'window.plausible?.toString().includes("XMLHttpRequest")'
+          'window.plausible?.toString().includes("pageview")'
         )
         await getPage().click('button')
         expect(events).toEqual(

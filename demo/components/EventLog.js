@@ -42,13 +42,17 @@ export default function EventLog({ colors }) {
       <script
         dangerouslySetInnerHTML={{
           __html: `
-            const send = XMLHttpRequest.prototype.send;
-            XMLHttpRequest.prototype.send = function (data) {
-              const event = JSON.parse(data)
-              if (event.n) {
-                window.addPlausibleEvent?.(event)
+            const originalFetch = window.fetch;
+            window.fetch = function (...args) {
+              const [url, options] = args;
+              if (url.includes("/api/event")) {
+                const body = options?.body;
+                const event = JSON.parse(options?.body)
+                if (event.n) {
+                  window.addPlausibleEvent?.(event)
+                }
               }
-              return send.call(this, data);
+              return originalFetch.apply(this, args);
             };
           `,
         }}
