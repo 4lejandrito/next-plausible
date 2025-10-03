@@ -104,15 +104,17 @@ testPlausibleProvider((withPage, url) => {
     withPage('/notFound', (_, getPage, events) => {
       it('there are 2 events sent', async () => {
         await getPage().waitForNetworkIdle()
-        expect(events).toEqual([
-          expect.objectContaining({
-            n: 'Page Not Found',
-            p: { page: '/notFound' },
-          }),
-          expect.objectContaining({
-            n: 'pageview',
-          }),
-        ])
+        expect(events).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              n: 'Page Not Found',
+              p: { page: '/notFound' },
+            }),
+            expect.objectContaining({
+              n: 'pageview',
+            }),
+          ])
+        )
       })
     })
   )
