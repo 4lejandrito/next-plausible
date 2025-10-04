@@ -5,6 +5,7 @@ import {
   getApiEndpoint,
   getScriptPath,
   getRemoteScriptName,
+  hashObject,
   NextPlausiblePublicProxyOptions,
 } from './common'
 
@@ -96,10 +97,14 @@ export default function PlausibleProvider(props: {
       }
     : undefined
 
+  // generate hash of props so that <Script> remounts when they change
+  const propsHash = hashObject(props)
+
   return (
     <>
       {enabled && (
         <Script
+          key={'plausible-' + propsHash}
           async
           defer
           data-api={proxyOptions ? getApiEndpoint(proxyOptions) : undefined}
@@ -140,6 +145,7 @@ export default function PlausibleProvider(props: {
       )}
       {enabled && (
         <Script
+          key={'plausible-init-' + propsHash}
           id="next-plausible-init"
           dangerouslySetInnerHTML={{
             __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`,

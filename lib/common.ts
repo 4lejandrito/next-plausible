@@ -1,3 +1,5 @@
+import crypto from 'crypto'
+
 export type NextPlausibleProxyOptions = {
   subdirectory?: string
   scriptName?: string
@@ -49,3 +51,9 @@ export const getApiEndpoint = (options: NextPlausiblePublicProxyOptions) =>
   `${options.basePath ?? ''}/${options.subdirectory ?? 'proxy'}/api/event${
     options.trailingSlash ? '/' : ''
   }`
+
+export const hashObject = (obj: any) =>
+  crypto
+    .createHash('md5')
+    .update(JSON.stringify(obj || {}))
+    .digest('hex')
