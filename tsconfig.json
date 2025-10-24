@@ -9,9 +9,10 @@
     "declaration": true,
     "jsx": "react",
     "strict": true,
-    "lib": ["es2017", "dom"],
+    "lib": ["es2023", "dom"],
     "sourceMap": true,
-    "allowJs": true
+    "allowJs": true,
+    "skipLibCheck": true
   },
   "files": ["index.ts"],
   "exclude": ["node_modules", "dist", "@types"]
