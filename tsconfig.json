@@ -2,14 +2,14 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "outDir": "./dist",
-    "target": "es6",
+    "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "declaration": true,
     "jsx": "react",
     "strict": true,
-    "lib": ["es2017", "dom"],
+    "lib": ["es2024", "dom", "dom.iterable"],
     "sourceMap": true,
     "allowJs": true
   },
