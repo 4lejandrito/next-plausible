@@ -7,7 +7,7 @@ import { describe, beforeAll, afterAll } from '@jest/globals'
 import callerPath from 'caller-path'
 import waitPort from 'wait-port'
 
-const execFile = util.promisify(cp.execFile)
+const exec = util.promisify(cp.exec)
 
 type ScriptAttr = (name: string, selector?: string) => Promise<string | null>
 type PlausibleEvent = object
@@ -88,16 +88,6 @@ export default (
 ) => {
   const dir = path.resolve(callerPath() ?? '', '..')
   const port = getPort(dir)
-  const repoRoot = path.resolve(__dirname, '..')
-  const nodeRuntime = path.join(repoRoot, 'node_modules', 'node', 'bin', 'node')
-  const nextCli = path.join(
-    repoRoot,
-    'node_modules',
-    'next',
-    'dist',
-    'bin',
-    'next'
-  )
   let childProcess: ChildProcess
   beforeAll(async () => {
     const env = {
@@ -105,8 +95,8 @@ export default (
       NEXT_PLAUSIBLE_TEST_DOMAIN: testDomain,
       PORT: `${port}`,
     }
-    await execFile(nodeRuntime, [nextCli, 'build'], { env, cwd: dir })
-    childProcess = spawn(nodeRuntime, [nextCli, 'start'], {
+    await exec(`next build`, { env, cwd: dir })
+    childProcess = spawn('next', ['start'], {
       env,
       cwd: dir,
     })
@@ -114,7 +104,7 @@ export default (
   })
 
   afterAll(async () => {
-    childProcess?.kill()
+    childProcess.kill()
   })
 
   testNextPlausible(fn, `http://localhost:${port}`)
