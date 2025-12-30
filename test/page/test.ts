@@ -276,4 +276,23 @@ testPlausibleProvider((withPage) => {
       })
     })
   )
+
+  describe(
+    'when using prepareUrl to manually track pageviews with custom query params',
+    withPage('/customQueryParams?param1=1&param2=2', (_, getPage, events) => {
+      it('sends the pageview event with the custom url', async () => {
+        await getPage().waitForNetworkIdle()
+        expect(events).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              n: 'pageview',
+              u: expect.stringMatching(
+                /http:\/\/localhost:(\d+)\/customQueryParams\/1\/2$/
+              ),
+            }),
+          ])
+        )
+      })
+    })
+  )
 })
