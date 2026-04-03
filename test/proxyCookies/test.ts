@@ -8,10 +8,13 @@ testPlausibleProvider((withPage) => {
   let success = false
   beforeAll((done) => {
     server = http.createServer(async (req, res) => {
-      if (req.url === '/js/script.local.js' && !req.headers.cookie) {
+      if (
+        req.url === '/js/pa-zQPm0mSb_NE1JtAQ6DiwY.js' &&
+        !req.headers.cookie
+      ) {
         success = true
         const scriptResponse = await axios.get(
-          'https://plausible.io/js/script.local.js'
+          'https://plausible.io/js/pa-zQPm0mSb_NE1JtAQ6DiwY.js'
         )
         res.writeHead(200, scriptResponse.headers)
         res.end(scriptResponse.data)
@@ -27,19 +30,16 @@ testPlausibleProvider((withPage) => {
     server.close()
   })
   describe(
-    'when used like <PlausibleProvider domain="example.com">',
-    withPage('/', (scriptAttr, getPage) => {
-      beforeAll(() =>
-        getPage().waitForResponse((response) =>
-          response.url().includes('/api/event')
-        )
-      )
+    'when used with proxy',
+    withPage('/', (scriptAttr) => {
       describe('the script', () => {
-        it('points to /test/js/script.js', () =>
-          expect(scriptAttr('src')).resolves.toBe('/js/script.local.js'))
+        it('points to /js/script.js', () =>
+          expect(scriptAttr('src')).resolves.toBe('/js/script.js'))
 
         it('uses the proxied api endpoint', () =>
-          expect(scriptAttr('data-api')).resolves.toBe('/proxy/api/event'))
+          expect(
+            scriptAttr('textContent', '#next-plausible-init')
+          ).resolves.toContain('/api/event'))
       })
     })
   )

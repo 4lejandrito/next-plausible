@@ -3,21 +3,20 @@ import PlausibleProvider from '../next-plausible/index.esm'
 import { NextSeo } from 'next-seo'
 import 'tailwindcss/tailwind.css'
 
+const domain = 'next-plausible.vercel.app'
+const title = 'Next-Plausible'
+const description =
+  'Simple integration for https://plausible.io analytics and https://nextjs.org'
+
 export default function App({ Component, pageProps }) {
-  const domain =
-    process.env.NODE_ENV === 'production'
-      ? 'next-plausible.vercel.app'
-      : 'localhost:3000'
-  const title = 'Next-Plausible'
-  const description =
-    'Simple integration for https://plausible.io analytics and https://nextjs.org'
   return (
     <PlausibleProvider
-      domain={domain}
-      trackOutboundLinks
-      trackFileDownloads
-      enabled={domain.indexOf('localhost') !== -1 || undefined}
-      trackLocalhost={domain.indexOf('localhost') !== -1}
+      enabled={process.env.NODE_ENV !== 'production' || undefined}
+      init={
+        process.env.NODE_ENV !== 'production'
+          ? { captureOnLocalhost: true }
+          : undefined
+      }
     >
       <Head>
         <link rel="shortcut icon" href="/next-plausible.png" />

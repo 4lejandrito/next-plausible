@@ -1,68 +1,48 @@
 import React, { ReactNode } from 'react'
 import Script from 'next/script'
-import {
-  getDomain,
-  getApiEndpoint,
-  getScriptPath,
-  getRemoteScriptName,
-  NextPlausiblePublicProxyOptions,
-} from './common'
-
-type RequiredKeys<T> = {
-  [K in keyof Required<T>]-?: T[K] | undefined
-}
 
 export default function PlausibleProvider(props: {
   /**
-   * The domain of the site you want to monitor.
+   * The site-specific script URL from your Plausible dashboard, e.g. https://plausible.io/js/pa-XXXXX.js.
+   * Not required when using withPlausibleProxy.
    */
-  domain: string
+  src?: string
   /**
-   * Set this if you use a custom domain to serve the analytics script. Defaults to https://plausible.io. See https://plausible.io/docs/custom-domain for more details.
+   * Options passed to plausible.init().
    */
-  customDomain?: string
-
+  init?: {
+    /**
+     * Set the custom pageview props as described https://plausible.io/docs/custom-props/introduction.
+     * If passing a function, it must be self-contained (no references to outer variables)
+     * as it is serialized and injected into an inline script.
+     */
+    customProperties?:
+      | { [key: string]: string }
+      | ((eventName: string) => { [key: string]: string })
+    /**
+     * Set a custom tracking endpoint. When using the proxy this is set automatically.
+     */
+    endpoint?: string
+    /**
+     * Set this to track file downloads only for certain file types as described in https://plausible.io/docs/file-downloads-tracking#what-if-i-want-to-track-a-different-file-type
+     */
+    fileDownloads?: {
+      fileExtensions: string[]
+    }
+    /**
+     *  Set this to true if you want to use hash-based routing as described in https://plausible.io/docs/hash-based-routing.
+     */
+    hashBasedRouting?: boolean
+    /**
+     * Set this to false if you want to disable automatic pageview events as described in https://plausible.io/docs/custom-locations.
+     */
+    autoCapturePageviews?: boolean
+    /**
+     * Set this to true if you want to enable localhost tracking.
+     */
+    captureOnLocalhost?: boolean
+  }
   children?: ReactNode | ReactNode[]
-  /**
-   * Set this to true if you want to disable automatic pageview events as described in https://plausible.io/docs/script-extensions#scriptmanualjs.
-   */
-  manualPageviews?: boolean
-  /**
-   * Set the custom pageview props (without the event- prefix) if you want to enable if you want to enable custom properties for pageviews as described https://plausible.io/docs/custom-pageview-props.
-   */
-  pageviewProps?: boolean | { [key: string]: string }
-  /**
-   *  Set this to true if you want to track ecommerce revenue as described in https://plausible.io/docs/ecommerce-revenue-tracking .
-   */
-  revenue?: boolean
-  /**
-   *  Set this to true if you want to use hash-based routing as described in https://plausible.io/docs/hash-based-routing.
-   */
-  hash?: boolean
-  /**
-   * Set this to true if you want to enable localhost tracking as described in https://plausible.io/docs/script-extensions.
-   */
-  trackLocalhost?: boolean
-  /**
-   * Set this to true if you want to enable outbound link click tracking.
-   */
-  trackOutboundLinks?: boolean
-  /**
-   * Set this to true if you want to enable file download tracking as described in https://plausible.io/docs/file-downloads-tracking
-   */
-  trackFileDownloads?: boolean
-  /**
-   * Set this to true if you want to enable custom event tracking in HTML elements as described in https://plausible.io/docs/custom-event-goals
-   */
-  taggedEvents?: boolean
-  /**
-   * Set this if you want to exclude a set of pages from being tracked. See https://plausible.io/docs/excluding-pages for more details.
-   */
-  exclude?: string
-  /**
-   *  Set this to true if you are self hosting your Plausible instance. Otherwise you will get a 404 when requesting the script.
-   */
-  selfHosted?: boolean
   /**
    * Use this to explicitly decide whether or not to render script. If not passed the script will be rendered in production environments (checking NODE_ENV and VERCEL_ENV).
    */
@@ -72,7 +52,7 @@ export default function PlausibleProvider(props: {
    */
   integrity?: string
   /**
-   * Optionally override any of the props passed to the script element. See example here https://github.com/4lejandrito/next-plausible/blob/master/test/page/pages/scriptProps.js .
+   * Optionally override any of the props passed to the script element.
    */
   scriptProps?: React.DetailedHTMLProps<
     React.ScriptHTMLAttributes<HTMLScriptElement>,
@@ -84,57 +64,41 @@ export default function PlausibleProvider(props: {
       (!process.env.NEXT_PUBLIC_VERCEL_ENV ||
         process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'),
   } = props
-  const proxyOptions:
-    | RequiredKeys<NextPlausiblePublicProxyOptions>
-    | undefined = process.env.next_plausible_proxy
-    ? {
-        trailingSlash: process.env.next_plausible_trailingSlash === 'true',
-        basePath: process.env.next_plausible_basePath,
-        customDomain: process.env.next_plausible_customDomain,
-        scriptName: process.env.next_plausible_scriptName,
-        subdirectory: process.env.next_plausible_subdirectory,
-      }
-    : undefined
+
+  const proxyScriptPath = process.env.next_plausible_scriptPath
+  const proxyApiPath = process.env.next_plausible_apiPath
+
+  if (props.src && proxyScriptPath) {
+    throw new Error('next-plausible: src is already set by withPlausibleProxy')
+  }
+
+  const src = proxyScriptPath ?? props.src
+  if (!src) {
+    throw new Error(
+      'next-plausible: src is required when not using withPlausibleProxy'
+    )
+  }
+
+  const initArgs = (
+    Object.entries({
+      ...(proxyApiPath ? { endpoint: proxyApiPath } : {}),
+      ...props.init,
+    }) as [string, unknown][]
+  )
+    .filter(([, v]) => v !== undefined)
+    .map(([k, v]) =>
+      typeof v === 'function' ? `${k}: ${v}` : `${k}: ${JSON.stringify(v)}`
+    )
 
   return (
     <>
       {enabled && (
         <Script
           async
-          defer
-          data-api={proxyOptions ? getApiEndpoint(proxyOptions) : undefined}
-          data-domain={props.domain}
-          data-exclude={props.exclude}
-          src={
-            (proxyOptions ? '' : getDomain(props)) +
-            getScriptPath(
-              {
-                ...proxyOptions,
-                scriptName: proxyOptions
-                  ? proxyOptions.scriptName
-                  : getRemoteScriptName(props.selfHosted),
-              },
-              props.trackLocalhost ? 'local' : null,
-              props.manualPageviews ? 'manual' : null,
-              props.pageviewProps ? 'pageview-props' : null,
-              props.trackOutboundLinks ? 'outbound-links' : null,
-              props.exclude ? 'exclusions' : null,
-              props.revenue ? 'revenue' : null,
-              props.trackFileDownloads ? 'file-downloads' : null,
-              props.taggedEvents ? 'tagged-events' : null,
-              props.hash ? 'hash' : null
-            )
-          }
+          id="next-plausible-script"
+          src={src}
           integrity={props.integrity}
           crossOrigin={props.integrity ? 'anonymous' : undefined}
-          {...(typeof props.pageviewProps === 'object'
-            ? Object.fromEntries(
-                Object.entries(props.pageviewProps).map(([k, v]) => [
-                  `event-${k}`,
-                  v,
-                ])
-              )
-            : undefined)}
           {...props.scriptProps}
         />
       )}
@@ -142,7 +106,12 @@ export default function PlausibleProvider(props: {
         <Script
           id="next-plausible-init"
           dangerouslySetInnerHTML={{
-            __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`,
+            __html: `;(window.plausible = window.plausible || function () {
+  ;(plausible.q = plausible.q || []).push(arguments)
+}), (plausible.init = plausible.init || function (i) {
+  plausible.o = i || {}
+})
+plausible.init(${initArgs.length ? `{${initArgs.join(', ')}}` : ''})`,
           }}
           nonce={props.scriptProps?.nonce}
         />

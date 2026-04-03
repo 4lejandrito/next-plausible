@@ -17,8 +17,7 @@ type WithPage = (
     scriptAttr: ScriptAttr,
     getPage: () => puppeteer.Page,
     events: PlausibleEvent[]
-  ) => void,
-  domain?: string
+  ) => void
 ) => () => void
 
 const getPort = (dir: string) => {
@@ -44,40 +43,42 @@ export const testNextPlausible = (
 
     afterAll(() => browser.close())
 
-    const withPage: WithPage =
-      (path, fn, domain = 'example.com') =>
-      () => {
-        let page: puppeteer.Page
-        const events: PlausibleEvent[] = []
+    const withPage: WithPage = (path, fn) => () => {
+      let page: puppeteer.Page
+      const events: PlausibleEvent[] = []
 
-        const getScriptAttr =
-          (domain: string): ScriptAttr =>
-          async (name, selector = `script[data-domain="${domain}"]`) => {
-            await page.waitForSelector(selector)
-            return page.$eval(
-              selector,
-              (el, name) => el.getAttribute(name as string),
-              name
-            )
-          }
-
-        beforeAll(async () => {
-          page = await browser.newPage()
-          page.on('request', (request) => {
-            if (request.url().endsWith('/api/event')) {
-              events.push(JSON.parse(request.postData() ?? '{}'))
-            }
-          })
-          await page.evaluateOnNewDocument(() => {
-            Object.defineProperty(navigator, 'webdriver', {
-              get: () => false,
-            })
-          })
-          await page.goto(`${baseUrl}${path}`)
-        })
-
-        fn(getScriptAttr(domain), () => page, events)
+      const scriptAttr: ScriptAttr = async (
+        name,
+        selector = '#next-plausible-script'
+      ) => {
+        await page.waitForSelector(selector)
+        if (name === 'textContent') {
+          return page.$eval(selector, (el) => el.textContent)
+        }
+        return page.$eval(
+          selector,
+          (el, name) => el.getAttribute(name as string),
+          name
+        )
       }
+
+      beforeAll(async () => {
+        page = await browser.newPage()
+        page.on('request', (request) => {
+          if (request.url().endsWith('/api/event')) {
+            events.push(JSON.parse(request.postData() ?? '{}'))
+          }
+        })
+        await page.evaluateOnNewDocument(() => {
+          Object.defineProperty(navigator, 'webdriver', {
+            get: () => false,
+          })
+        })
+        await page.goto(`${baseUrl}${path}`)
+      })
+
+      fn(scriptAttr, () => page, events)
+    }
 
     fn(withPage, baseUrl)
   })

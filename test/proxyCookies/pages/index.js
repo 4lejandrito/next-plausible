@@ -5,7 +5,7 @@ const index = () => {
   useEffect(() => {
     document.cookie = 'test=test'
   }, [])
-  return <PlausibleProvider domain="example.com" trackLocalhost enabled />
+  return <PlausibleProvider enabled init={{ captureOnLocalhost: true }} />
 }
 
 export default index

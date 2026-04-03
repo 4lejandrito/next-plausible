@@ -4,20 +4,26 @@ import { describe, it, expect } from '@jest/globals'
 
 testPlausibleProvider((withPage, url) => {
   describe(
-    'when used with proxy and locale routing',
-    withPage('/es', (scriptAttr) => {
+    'when used with a basePath like <PlausibleProvider>',
+    withPage('/test', (scriptAttr) => {
       describe('the script', () => {
-        it('points to /js/script.js', () =>
-          expect(scriptAttr('src')).resolves.toBe('/js/script.js'))
+        it('points to /test/js/script.js', () =>
+          expect(scriptAttr('src')).resolves.toBe('/test/js/script.js'))
+
+        it('uses the proxied api endpoint', () =>
+          expect(
+            scriptAttr('textContent', '#next-plausible-init')
+          ).resolves.toContain('/test/api/event'))
       })
     })
   )
 
   describe('The script at', () => {
-    describe('/js/script.js', () => {
+    describe('/test/js/script.js', () => {
       it('is proxied from https://plausible.io/js/pa-zQPm0mSb_NE1JtAQ6DiwY.js', async () => {
-        const sourceScriptContent = (await axios.get(`${url}/js/script.js`))
-          .data
+        const sourceScriptContent = (
+          await axios.get(`${url}/test/js/script.js`)
+        ).data
         const destinationScriptContent = (
           await axios.get('https://plausible.io/js/pa-zQPm0mSb_NE1JtAQ6DiwY.js')
         ).data
