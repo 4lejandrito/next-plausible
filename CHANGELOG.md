@@ -1,5 +1,38 @@
 # Changelog
 
+## [v4.0.0](https://github.com/4lejandrito/next-plausible/tree/v4.0.0) (2026-04-03)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.5...v4.0.0)
+
+**Closed issues:**
+
+- Support Next,js 16 [\#149](https://github.com/4lejandrito/next-plausible/issues/149)
+
+## [v3.12.5](https://github.com/4lejandrito/next-plausible/tree/v3.12.5) (2025-11-10)
+
+[Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.4...v3.12.5)
+
+**Closed issues:**
+
+- pageviewProps not updating when state changes [\#146](https://github.com/4lejandrito/next-plausible/issues/146)
+- Specify path to the script file [\#145](https://github.com/4lejandrito/next-plausible/issues/145)
+- PlausibleProvider not working [\#144](https://github.com/4lejandrito/next-plausible/issues/144)
+- Avoid sending the "u" prop when using the usePlausible hook function to send a goal [\#143](https://github.com/4lejandrito/next-plausible/issues/143)
+- Multiple domains [\#141](https://github.com/4lejandrito/next-plausible/issues/141)
+- Uncaught SyntaxError: Unexpected token when using `withPlausibleProxy` [\#137](https://github.com/4lejandrito/next-plausible/issues/137)
+- Catch proxy errors [\#133](https://github.com/4lejandrito/next-plausible/issues/133)
+- Cannot customize \<head\> tag in app router method [\#131](https://github.com/4lejandrito/next-plausible/issues/131)
+- withPlausibleProxy server side networking issues [\#126](https://github.com/4lejandrito/next-plausible/issues/126)
+- Failed to load resource: the server responded with a status of 500 \(\) [\#118](https://github.com/4lejandrito/next-plausible/issues/118)
+- Cannot find package `.../node_modules/next-plausible/`, imported from `next.config.mjs` [\#117](https://github.com/4lejandrito/next-plausible/issues/117)
+- PlausibleProvider with Next js 13.4.12 [\#103](https://github.com/4lejandrito/next-plausible/issues/103)
+- Selfhosted not working as expected [\#94](https://github.com/4lejandrito/next-plausible/issues/94)
+- Plausible not detected on website - 404 script error [\#85](https://github.com/4lejandrito/next-plausible/issues/85)
+
+**Merged pull requests:**
+
+- Upgrade to support NextJS 16 [\#151](https://github.com/4lejandrito/next-plausible/pull/151) ([lorenzpfei](https://github.com/lorenzpfei))
+
 ## [v3.12.4](https://github.com/4lejandrito/next-plausible/tree/v3.12.4) (2024-11-08)
 
 [Full Changelog](https://github.com/4lejandrito/next-plausible/compare/v3.12.3...v3.12.4)
